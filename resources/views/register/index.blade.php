@@ -51,6 +51,11 @@
                 class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
             Registrar
         </button>
+
+        <!-- Link para Login -->
+        <div class="mt-4 text-center">
+            <p class="text-gray-600">Já possui uma conta? <a href="/login/index" class="text-blue-500 hover:underline">Entre aqui.</a></p>
+        </div>
     </form>
 </div>
 </body>

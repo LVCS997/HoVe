@@ -18,14 +18,14 @@
     <!-- Formulário de Login -->
     <form method="post" action="/login/index">
         @csrf
+        @error('email')
+        <span class="text-red-500 text-sm">{{ $message }}</span>
+        @enderror
 
         <!-- Campo de Email -->
         <div class="mb-4">
             <input type="email" name="email" placeholder="Email" value="{{ old('email') }}"
                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-            @error('email')
-            <span class="text-red-500 text-sm">{{ $message }}</span>
-            @enderror
         </div>
 
         <!-- Campo de Senha -->
@@ -42,6 +42,11 @@
                 class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
             Entrar
         </button>
+
+        <!-- Link para Registro -->
+        <div class="mt-4 text-center">
+            <p class="text-gray-600">Não tem uma conta? <a href="/register/index" class="text-blue-500 hover:underline">Registre-se aqui.</a></p>
+        </div>
     </form>
 </div>
 </body>

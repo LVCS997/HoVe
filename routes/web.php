@@ -70,4 +70,6 @@ Route::get('/logout', function () {
 
 
 // Rotas para menu
-
+Route::get('/', function () {
+    return view('welcome');
+});
