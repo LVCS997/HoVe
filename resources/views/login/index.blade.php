@@ -1,22 +1,48 @@
-<form method="post" action="/login/index">
-    @csrf
-
-    <!-- Campo de Email -->
-    <div>
-        <input type="email" name="email" placeholder="Email" value="{{ old('email') }}">
-        @error('email')
-        <span style="color: red;">{{ $message }}</span>
-        @enderror
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Hospital Municipal Veterinário</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+<div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+    <!-- Logo e Título -->
+    <div class="text-center mb-6">
+        <img src="https://hmv.duquedecaxias.rj.gov.br/build/assets/LogoPMDC.a9ec58f9.png" alt="Logo Hospital Municipal Veterinário" class="mx-auto w-72 h-auto">
+        <h1 class="text-2xl font-bold text-gray-800 mt-4">Login</h1>
     </div>
 
-    <!-- Campo de Senha -->
-    <div>
-        <input type="password" name="password" placeholder="Senha">
-        @error('password')
-        <span style="color: red;">{{ $message }}</span>
-        @enderror
-    </div>
+    <!-- Formulário de Login -->
+    <form method="post" action="/login/index">
+        @csrf
 
-    <!-- Botão de Envio -->
-    <button type="submit">Entrar</button>
-</form>
+        <!-- Campo de Email -->
+        <div class="mb-4">
+            <input type="email" name="email" placeholder="Email" value="{{ old('email') }}"
+                   class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            @error('email')
+            <span class="text-red-500 text-sm">{{ $message }}</span>
+            @enderror
+        </div>
+
+        <!-- Campo de Senha -->
+        <div class="mb-6">
+            <input type="password" name="password" placeholder="Senha"
+                   class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            @error('password')
+            <span class="text-red-500 text-sm">{{ $message }}</span>
+            @enderror
+        </div>
+
+        <!-- Botão de Envio -->
+        <button type="submit"
+                class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            Entrar
+        </button>
+    </form>
+</div>
+</body>
+</html>
