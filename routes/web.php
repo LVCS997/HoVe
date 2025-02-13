@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Http\Controllers\OwnerController;
+use App\Http\Controllers\PetController;
+
 
 // Rotas de Registro
 
@@ -73,3 +76,10 @@ Route::get('/logout', function () {
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+// Rotas para Owner
+Route::resource('owners', OwnerController::class);
+
+// Rotas para Pet
+Route::resource('pets', PetController::class);
