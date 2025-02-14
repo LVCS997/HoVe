@@ -66,8 +66,9 @@
                 </div>
 
                 @auth
-                    @if(auth()->user()->role === 'medico')
-                        <div id="campos_medico" class="">
+                    @if(auth()->user()->role === 'medic')
+                        <h1 class="text-3xl font-bold text-center my-5">Campo dos Médicos</h1>
+                        <div id="campos_medico" class="bg-red-300 p-1 mt-2 rounded">
                             <div class="mb-4">
                                 <label for="cidade_nascimento" class="block text-gray-700">Cidade de Nascimento</label>
                                 <input type="text" id="cidade_nascimento" name="cidade_nascimento" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
@@ -98,22 +99,83 @@
                             </div>
                         </div>
                     @endif
-
                 @endauth
-                <!-- TODO: FAZER COM QUE ESTE SELECT SEJA UMA FORMA DE FILTRAR OS DONOS POR CPF OU RG -->
 
-
-
+                <!-- Campo de Filtro por CPF -->
                 <div class="mb-4">
-                    <label for="owner_id" class="block text-gray-700">Dono</label>
-                    <select id="owner_id" name="owner_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
-                        @foreach ($owners as $owner)
-                            <option value="{{ $owner->id }}">{{ $owner->nome }}</option>
-                        @endforeach
-                    </select>
+                    <label for="filter-cpf" class="block text-gray-700">Buscar Dono por CPF</label>
+                    <div class="flex">
+                        <input type="text" id="filter-cpf" name="filter-cpf" placeholder="Digite o CPF..."
+                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <button type="button" id="buscar-dono" class="ml-2 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+                            Buscar
+                        </button>
+                    </div>
                 </div>
+
+                <!-- Informações do Dono (exibidas dinamicamente) -->
+                <div id="dono-info" class="hidden bg-gray-50 p-4 rounded-lg mt-4">
+                    <h3 class="text-xl font-bold mb-4">Informações do Dono</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-gray-700">Nome:</label>
+                            <input type="text" id="dono-nome" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm bg-gray-100" readonly>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700">CPF:</label>
+                            <input type="text" id="dono-cpf" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm bg-gray-100" readonly>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700">RG:</label>
+                            <input type="text" id="dono-rg" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm bg-gray-100" readonly>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700">Telefone:</label>
+                            <input type="text" id="dono-telefone" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm bg-gray-100" readonly>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700">Endereço:</label>
+                            <input type="text" id="dono-endereco" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm bg-gray-100" readonly>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700">Data de Nascimento:</label>
+                            <input type="text" id="dono-data_nascimento" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm bg-gray-100" readonly>
+                        </div>
+                    </div>
+                    <input type="hidden" id="dono-id" name="owner_id">
+                </div>
+
                 <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Salvar</button>
             </form>
         </div>
     </div>
+
+    <!-- Script para buscar o dono -->
+    <script>
+        document.getElementById('buscar-dono').addEventListener('click', function () {
+            const cpf = document.getElementById('filter-cpf').value;
+
+            // Envia uma requisição para buscar o dono
+            fetch(`/owners/buscar-por-cpf?cpf=${cpf}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data) {
+                        // Preenche os campos com as informações do dono
+                        document.getElementById('dono-nome').value = data.nome;
+                        document.getElementById('dono-cpf').value = data.cpf;
+                        document.getElementById('dono-rg').value = data.rg;
+                        document.getElementById('dono-telefone').value = data.telefone;
+                        document.getElementById('dono-endereco').value = data.endereco;
+                        document.getElementById('dono-data_nascimento').value = data.data_nascimento;
+                        document.getElementById('dono-id').value = data.id;
+
+                        // Exibe o formulário de informações do dono
+                        document.getElementById('dono-info').classList.remove('hidden');
+                    } else {
+                        alert('Dono não encontrado!');
+                    }
+                })
+                .catch(error => console.error('Erro ao buscar dono:', error));
+        });
+    </script>
 </x-layout>

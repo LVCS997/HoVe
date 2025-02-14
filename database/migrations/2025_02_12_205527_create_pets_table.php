@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('raca');
             $table->integer('idade');
             $table->enum('sexo', ['Macho', 'Femea']);
-            $table->decimal('peso', 5, 2);
+            $table->decimal('peso', 5, 2)->nullable();
             $table->enum('porte', ['Pequeno', 'Médio', 'Grande', 'Não Definido'])->default('Não Definido');
             $table->boolean('castrado')->default('Não');
             $table->boolean('vacinas')->default(false);

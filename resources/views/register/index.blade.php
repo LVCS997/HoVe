@@ -16,7 +16,7 @@
     </div>
 
     <!-- Formulário de Registro -->
-    <form method="post" action="/register/index">
+    <form method="post" action="/register/">
         @csrf
 
         <!-- Campo de Nome -->
@@ -54,7 +54,7 @@
 
         <!-- Link para Login -->
         <div class="mt-4 text-center">
-            <p class="text-gray-600">Já possui uma conta? <a href="/login/index" class="text-blue-500 hover:underline">Entre aqui.</a></p>
+            <p class="text-gray-600">Já possui uma conta? <a href="/login/" class="text-blue-500 hover:underline">Entre aqui.</a></p>
         </div>
     </form>
 </div>

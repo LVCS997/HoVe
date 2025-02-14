@@ -11,7 +11,7 @@
 </head>
 <body class="bg-gray-100 flex">
 <!-- Sidebar -->
-<aside class="bg-white w-64 min-h-screen shadow-lg">
+<aside class="bg-white w-64 min-h-screen shadow-lg flex flex-col justify-between">
     <div class="p-6">
         <!-- Logo e Título -->
         <div class="text-center mb-6">
@@ -23,20 +23,32 @@
         <nav class="flex flex-col justify-between">
             <div>
                 @auth
-                    @if(auth()->user()->role !== 'admin')
+                    @if(auth()->user()->role === 'medic')
+
                         <x-menu-medic></x-menu-medic>
-                    @else
+
+                    @elseif(auth()->user()->role === 'receptionist')
                         <x-menu-receptionist></x-menu-receptionist>
+
+                    @else
+                        <x-menu-lab></x-menu-lab>
                     @endif
+
                 @endauth
             </div>
-
-            <div>
-                <a href="/logout">
-                    <button class="bg-red-500 rounded py-2 px-3">Deslogar</button>
-                </a>
-            </div>
         </nav>
+    </div>
+
+    <!-- Nome do Usuário e Botão de Deslogar -->
+    <div class="p-6">
+        <div class="mb-4">
+            <p class="text-gray-800 font-semibold">Nome: {{ auth()->user()->name }}</p>
+        </div>
+        <div>
+            <a href="/logout">
+                <button class="bg-red-500 text-white rounded py-2 px-4 w-full">Deslogar</button>
+            </a>
+        </div>
     </div>
 </aside>
 
@@ -48,9 +60,7 @@
     </header>
 
     <!-- Conteúdo Dinâmico -->
-
     {{ $slot }}
-
 </main>
 
 <!-- Script para carregar ícones -->

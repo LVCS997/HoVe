@@ -10,13 +10,18 @@ class OwnerController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $owners = Owner::all();
+        // Obtém o valor do filtro (CPF) da requisição
+        $cpf = $request->query('cpf');
 
-        return view('owners.index', [
-            'owners' => $owners->isEmpty() ? collect([]) : $owners
-        ]);
+        // Filtra os donos com base no CPF (se fornecido)
+        $owners = Owner::when($cpf, function ($query, $cpf) {
+            return $query->where('cpf', 'like', "%{$cpf}%");
+        })->get();
+
+        // Retorna a view com os donos filtrados
+        return view('owners.index', compact('owners'));
     }
 
 
@@ -86,6 +91,17 @@ class OwnerController extends Controller
     public function destroy(Owner $owner)
     {
         $owner->delete();
-        return view('owners.index')->with('success', 'Responsável removido com sucesso!');
+
+        // Redireciona para a lista de donos com uma mensagem de sucesso
+        return redirect()->route('owners.index')->with('success', 'Responsável removido com sucesso!');
     }
+
+    public function buscarPorCpf(Request $request)
+    {
+        $cpf = $request->query('cpf');
+        $owner = Owner::where('cpf', $cpf)->first();
+
+        return response()->json($owner);
+    }
+
 }

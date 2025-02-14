@@ -16,7 +16,7 @@
     </div>
 
     <!-- Formulário de Login -->
-    <form method="post" action="/login/index">
+    <form method="post" action="/login/">
         @csrf
         @error('email')
         <span class="text-red-500 text-sm">{{ $message }}</span>
@@ -45,7 +45,7 @@
 
         <!-- Link para Registro -->
         <div class="mt-4 text-center">
-            <p class="text-gray-600">Não tem uma conta? <a href="/register/index" class="text-blue-500 hover:underline">Registre-se aqui.</a></p>
+            <p class="text-gray-600">Não tem uma conta? <a href="/register/" class="text-blue-500 hover:underline">Registre-se aqui.</a></p>
         </div>
     </form>
 </div>

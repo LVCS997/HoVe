@@ -11,11 +11,11 @@ use App\Http\Controllers\PetController;
 
 // Rotas de Registro
 
-Route::get('/register/index', function () {  // Rota para mostrar o formulário de registro
+Route::get('/register', function () {  // Rota para mostrar o formulário de registro
     return view('register.index');
-});
+})->name('register');
 
-Route::post('/register/index', function (Request $request) {
+Route::post('/register', function (Request $request) {
     $user = $request->validate([
         'name' => 'required',
         'email' => 'required|email',
@@ -30,16 +30,16 @@ Route::post('/register/index', function (Request $request) {
         'role' => 'user', // Papel padrão
     ]);
 
-    return redirect('/login/index');
+    return redirect('/login');
 });
 
 // Rotas para Login
 
-Route::get('/login/index', function () {
+Route::get('/login', function () {
     return view('login.index');
-});
+})->name('login');
 
-Route::post('/login/index', function (Request $request) {
+Route::post('/login', function (Request $request) {
     // Validação dos dados
     $credentials = $request->validate([
         'email' => 'required|email',
@@ -64,22 +64,28 @@ Route::post('/login/index', function (Request $request) {
 
 Route::get('/logout', function () {
     Auth::logout();
-    return redirect('/login/index');
+    return redirect('/login');
 });
 
 
 
-
+Route::middleware(['auth'])->group(function () {
 
 
 // Rotas para menu
-Route::get('/', function () {
-    return view('welcome');
+    Route::get('/', function () {
+        return view('welcome');
+    });
+
+    Route::get('/owners/buscar-por-cpf', [OwnerController::class, 'buscarPorCpf'])->name('owners.buscar-por-cpf');
+
+// Rotas para Owner
+    Route::resource('owners', OwnerController::class);
+
+// Rotas para Pet
+    Route::resource('pets', PetController::class);
+
+
 });
 
 
-// Rotas para Owner
-Route::resource('owners', OwnerController::class);
-
-// Rotas para Pet
-Route::resource('pets', PetController::class);

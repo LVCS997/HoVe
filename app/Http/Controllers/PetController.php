@@ -47,8 +47,8 @@ class PetController extends Controller
             'onde_vacinado' => 'nullable',
             'anamnese' => 'nullable',
 
-            // medico
-            'peso' => 'required|numeric',
+            // médico
+            'peso' => 'nullable|numeric',
             'cidade_nascimento' => 'nullable',
             'uf_nascimento' => 'nullable',
             'pais_nascimento' => 'nullable',
@@ -56,12 +56,8 @@ class PetController extends Controller
             'hora_nascimento' => 'nullable',
             'data_nascimento' => 'nullable',
 
-            'owner_id' => 'required|exists:owners,id',
+            'owner_id' => 'required|exists:owners,id', // Validação do owner_id
         ]);
-
-
-
-
 
         Pet::create($request->all());
         return redirect()->route('pets.index');
@@ -72,6 +68,7 @@ class PetController extends Controller
      */
     public function show(Pet $pet)
     {
+
         return view('pets.show', compact('pet'));
     }
 
@@ -95,7 +92,7 @@ class PetController extends Controller
             'raca' => 'required',
             'idade' => 'required|integer',
             'sexo' => 'required',
-            'peso' => 'required|numeric',
+            'peso' => 'nullable|numeric',
             'pelagem' => 'required',
             'castrado' => 'required|boolean',
             'vacinas' => 'required|boolean',
@@ -112,7 +109,6 @@ class PetController extends Controller
             'hora_nascimento' => 'nullable',
             'data_nascimento' => 'nullable',
 
-            'owner_id' => 'required|exists:owners,id',
         ]);
 
         $pet->update($request->all());
