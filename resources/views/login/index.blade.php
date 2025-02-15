@@ -18,13 +18,13 @@
     <!-- Formulário de Login -->
     <form method="post" action="/login/">
         @csrf
-        @error('email')
+        @error('cpf')
         <span class="text-red-500 text-sm">{{ $message }}</span>
         @enderror
 
-        <!-- Campo de Email -->
+        <!-- Campo de CPF -->
         <div class="mb-4">
-            <input type="email" name="email" placeholder="Email" value="{{ old('email') }}"
+            <input type="text" name="cpf" placeholder="CPF" value="{{ old('cpf') }}"
                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
         </div>
 

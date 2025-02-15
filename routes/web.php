@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
@@ -11,61 +12,43 @@ use App\Http\Controllers\PetController;
 
 // Rotas de Registro
 
-Route::get('/register', function () {  // Rota para mostrar o formulário de registro
-    return view('register.index');
-})->name('register');
+// Middleware para verificar se usuário está autenticado e se usuário é administrador do sistema.
+Route::middleware(['auth', 'admin'])->group(function () {
 
-Route::post('/register', function (Request $request) {
-    $user = $request->validate([
-        'name' => 'required',
-        'email' => 'required|email',
-        'password' => 'required',
-    ]);
+    Route::get('/register', function () {  // Rota para mostrar o formulário de registro
+        return view('register.index');
+    })->name('register');
 
-    // Criar o Usuário com o papel padrão 'user'
-    User::create([
-        'name' => $user['name'],
-        'email' => $user['email'],
-        'password' => Hash::make($user['password']),
-        'role' => 'user', // Papel padrão
-    ]);
+    Route::post('/register', function (Request $request) {
+        $user = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
 
-    return redirect('/login');
+        // Criar o Usuário com o papel padrão 'user'
+        User::create([
+            'name' => $user['name'],
+            'email' => $user['email'],
+            'password' => Hash::make($user['password']),
+            'role' => 'user', // Papel padrão
+        ]);
+
+        return redirect('/login');
+    });
+
 });
 
 // Rotas para Login
 
-Route::get('/login', function () {
-    return view('login.index');
-})->name('login');
+// Rota para exibir o formulário de login
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 
-Route::post('/login', function (Request $request) {
-    // Validação dos dados
-    $credentials = $request->validate([
-        'email' => 'required|email',
-        'password' => 'required',
-    ]);
+// Rota para processar o login
+Route::post('/login', [LoginController::class, 'login']);
 
-    // Tentativa de autenticação
-    if (Auth::attempt($credentials)) {
-        // Regenera a sessão para evitar ataques de fixação
-        $request->session()->regenerate();
-
-        // Redireciona para a URL pretendida ou para a página inicial
-        return redirect()->intended('/');
-    }
-
-    // Se a autenticação falhar, retorna para a página de login com erros
-    return back()->withErrors([
-        'email' => 'As credenciais fornecidas não correspondem aos nossos registros.',
-    ]);
-});
-
-
-Route::get('/logout', function () {
-    Auth::logout();
-    return redirect('/login');
-});
+// Rota para logout
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
 
