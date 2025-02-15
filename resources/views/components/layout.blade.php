@@ -23,11 +23,11 @@
         <nav class="flex flex-col justify-between">
             <div>
                 @auth
-                    @if(auth()->user()->role === 'medic')
+                    @if(auth()->user()->role === 'veterinario')
 
                         <x-menu-medic></x-menu-medic>
 
-                    @elseif(auth()->user()->role === 'receptionist')
+                    @elseif(auth()->user()->role === 'atendente')
                         <x-menu-receptionist></x-menu-receptionist>
 
                     @else

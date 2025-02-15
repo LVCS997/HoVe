@@ -17,6 +17,8 @@
 
     <!-- Formulário de Login -->
     <form method="post" action="/login/">
+
+
         @csrf
         @error('cpf')
         <span class="text-red-500 text-sm">{{ $message }}</span>
@@ -42,11 +44,6 @@
                 class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
             Entrar
         </button>
-
-        <!-- Link para Registro -->
-        <div class="mt-4 text-center">
-            <p class="text-gray-600">Não tem uma conta? <a href="/register/" class="text-blue-500 hover:underline">Registre-se aqui.</a></p>
-        </div>
     </form>
 </div>
 </body>

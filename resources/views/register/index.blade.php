@@ -17,31 +17,66 @@
 
     <!-- Formulário de Registro -->
     <form method="post" action="/register/">
+
+        <!-- Exibição da Mensagem de Sucesso -->
+        @if(session('success'))
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        <!-- Exibição da Mensagem de Erro -->
+        @if(session('error'))
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                {{ session('error') }}
+            </div>
+        @endif
+
         @csrf
 
         <!-- Campo de Nome -->
         <div class="mb-4">
-            <input type="text" name="name" placeholder="Nome"
+            <input type="text" name="name" placeholder="Nome" value="{{ old('name') }}"
                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
             @error('name')
             <span class="text-red-500 text-sm">{{ $message }}</span>
             @enderror
         </div>
 
-        <!-- Campo de Email -->
+        <!-- Campo de CPF -->
         <div class="mb-4">
-            <input type="email" name="email" placeholder="Email"
+            <input type="text" name="cpf" id="cpf" placeholder="CPF" value="{{ old('cpf') }}"
                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-            @error('email')
+            @error('cpf')
             <span class="text-red-500 text-sm">{{ $message }}</span>
             @enderror
         </div>
 
         <!-- Campo de Senha -->
-        <div class="mb-6">
+        <div class="mb-4">
             <input type="password" name="password" placeholder="Senha"
                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
             @error('password')
+            <span class="text-red-500 text-sm">{{ $message }}</span>
+            @enderror
+        </div>
+
+        <!-- Campo de Confirmação de Senha -->
+        <div class="mb-6">
+            <input type="password" name="password_confirmation" placeholder="Confirme a Senha"
+                   class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <!-- Campo de Role (Papel) -->
+        <div class="mb-6">
+            <label class="block text-gray-700 text-sm font-bold mb-2">Papel (Role)</label>
+            <select name="role" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="admin">Administrador</option>
+                <option value="veterinario">Veterinário</option>
+                <option value="atendente">Atendente</option>
+                <option value="user" selected>Usuário Padrão</option>
+            </select>
+            @error('role')
             <span class="text-red-500 text-sm">{{ $message }}</span>
             @enderror
         </div>
@@ -58,5 +93,26 @@
         </div>
     </form>
 </div>
+
+<!-- Script para máscara de CPF -->
+<script>
+    document.getElementById('cpf').addEventListener('input', function (e) {
+        let value = e.target.value.replace(/\D/g, ''); // Remove todos os caracteres não numéricos
+        if (value.length > 11) {
+            value = value.slice(0, 11); // Limita a 11 dígitos
+        }
+
+        // Aplica a máscara de CPF (111.222.333-44)
+        if (value.length > 9) {
+            value = value.replace(/^(\d{3})(\d{3})(\d{3})(\d{2}).*/, '$1.$2.$3-$4');
+        } else if (value.length > 6) {
+            value = value.replace(/^(\d{3})(\d{3})(\d{0,3}).*/, '$1.$2.$3');
+        } else if (value.length > 3) {
+            value = value.replace(/^(\d{3})(\d{0,3}).*/, '$1.$2');
+        }
+
+        e.target.value = value; // Atualiza o valor do campo
+    });
+</script>
 </body>
 </html>

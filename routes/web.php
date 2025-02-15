@@ -12,7 +12,7 @@ use App\Http\Controllers\PetController;
 
 // Rotas de Registro
 
-// Middleware para verificar se usuário está autenticado e se usuário é administrador do sistema.
+// Middleware para verificar se utilizador está autenticado e se utilizador é administrador do sistema.
 Route::middleware(['auth', 'admin'])->group(function () {
 
     Route::get('/register', function () {  // Rota para mostrar o formulário de registro
@@ -20,21 +20,26 @@ Route::middleware(['auth', 'admin'])->group(function () {
     })->name('register');
 
     Route::post('/register', function (Request $request) {
+        // Remove a formatação do CPF
+        $cpf = preg_replace('/[^0-9]/', '', $request->cpf);
+
+        // Validação dos dados
         $user = $request->validate([
-            'name' => 'required',
-            'email' => 'required|email',
-            'password' => 'required',
+            'name' => 'required|string|max:255',
+            'cpf' => 'required|string|unique:users|max:14', // CPF único e com no máximo 14 caracteres
+            'password' => 'required|string|min:8|confirmed', // Senha com confirmação
+            'role' => 'required|string|in:admin,veterinario,atendente,user', // Papel válido
         ]);
 
-        // Criar o Usuário com o papel padrão 'user'
+        // Criar o Usuário
         User::create([
             'name' => $user['name'],
-            'email' => $user['email'],
+            'cpf' => $cpf, // Salva o CPF sem formatação
             'password' => Hash::make($user['password']),
-            'role' => 'user', // Papel padrão
+            'role' => $user['role'], // Papel escolhido
         ]);
 
-        return redirect('/login');
+        return redirect('/register')->with('success', 'Usuário registrado com sucesso!');
     });
 
 });

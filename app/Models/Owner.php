@@ -9,17 +9,22 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Owner extends Model
 {
-    use HasFactory;
-
-
     protected $fillable = [
         'nome',
-        'rg',
-        'endereco',
         'telefone',
         'data_nascimento',
-        'cpf'
+        'rg',
+        'cpf',
+        'cep',
+        'estado',
+        'cidade',
+        'logradouro',
+        'numero',
+        'complemento',
     ];
+
+
+    use HasFactory;
 
     public function pets(){
         return $this->hasMany(Pet::class);
