@@ -26,7 +26,7 @@
 
         <!-- Campo de CPF -->
         <div class="mb-4">
-            <input type="text" name="cpf" placeholder="CPF" value="{{ old('cpf') }}"
+            <input type="text" name="cpf" placeholder="CPF" id="cpf" value="{{ old('cpf') }}"
                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
         </div>
 

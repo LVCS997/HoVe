@@ -19,7 +19,7 @@ class LoginController extends Controller
     {
         // Validação dos dados
         $credentials = $request->validate([
-            'cpf' => 'required|string', // Usando CPF em vez de email
+            'cpf' => 'required', // Usando CPF em vez de email
             'password' => 'required',
         ]);
 

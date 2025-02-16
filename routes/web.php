@@ -26,18 +26,13 @@ Route::middleware(['auth', 'admin'])->group(function () {
         // Validação dos dados
         $user = $request->validate([
             'name' => 'required|string|max:255',
-            'cpf' => 'required|string|unique:users|max:14', // CPF único e com no máximo 14 caracteres
+            'cpf' => 'required|string|unique:users|max:11|min:11', // CPF único e com no máximo 14 caracteres
             'password' => 'required|string|min:8|confirmed', // Senha com confirmação
             'role' => 'required|string|in:admin,veterinario,atendente,user', // Papel válido
         ]);
 
         // Criar o Usuário
-        User::create([
-            'name' => $user['name'],
-            'cpf' => $cpf, // Salva o CPF sem formatação
-            'password' => Hash::make($user['password']),
-            'role' => $user['role'], // Papel escolhido
-        ]);
+        User::create($request->all());
 
         return redirect('/register')->with('success', 'Usuário registrado com sucesso!');
     });

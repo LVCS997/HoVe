@@ -11,9 +11,9 @@ class Owner extends Model
 {
     protected $fillable = [
         'nome',
+        'rg',
         'telefone',
         'data_nascimento',
-        'rg',
         'cpf',
         'cep',
         'estado',
@@ -21,6 +21,7 @@ class Owner extends Model
         'logradouro',
         'numero',
         'complemento',
+        'bairro',
     ];
 
 

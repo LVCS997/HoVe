@@ -38,13 +38,20 @@ class OwnerController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'nome' => 'required',
             'rg' => 'required|unique:owners',
-            'endereco' => 'required',
             'telefone' => 'required',
             'data_nascimento' => 'required|date',
             'cpf' => 'required|unique:owners',
+            'cep' => 'required',
+            'estado' => 'required',
+            'cidade' => 'required',
+            'bairro' => 'required',
+            'logradouro' => 'required',
+            'numero' => 'required',
+            'complemento' => 'nullable',
         ]);
 
         Owner::create($request->all());
@@ -75,10 +82,16 @@ class OwnerController extends Controller
         $request->validate([
             'nome' => 'required',
             'rg' => 'required|unique:owners,rg,' . $owner->id,
-            'endereco' => 'required',
             'telefone' => 'required',
             'data_nascimento' => 'required|date',
             'cpf' => 'required|unique:owners,cpf,' . $owner->id,
+            'cep' => 'required',
+            'estado' => 'required',
+            'cidade' => 'required',
+            'bairro' => 'required',
+            'logradouro' => 'required',
+            'numero' => 'required',
+            'complemento' => 'nullable',
         ]);
 
         $owner->update($request->all());
