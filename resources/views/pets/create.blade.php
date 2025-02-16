@@ -63,7 +63,7 @@
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     required>
                                 <option value="Macho">Macho</option>
-                                <option value="Fêmea">Fêmea</option>
+                                <option value="Femea">Fêmea</option>
                             </select>
                             @error('sexo')
                             <span class="text-red-500 text-sm">{{ $message }}</span>

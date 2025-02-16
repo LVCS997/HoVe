@@ -32,6 +32,9 @@
                     @elseif(auth()->user()->role === 'atendente')
                         <x-menu-receptionist></x-menu-receptionist>
 
+                    @elseif(auth()->user()->role === 'admin')
+                        <x-menu-admin></x-menu-admin>
+
                     @else
                         <x-menu-lab></x-menu-lab>
                     @endif

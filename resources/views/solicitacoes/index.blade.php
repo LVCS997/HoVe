@@ -46,6 +46,13 @@
                                         @endforeach
                                     </ul>
                                 </td>
+                                <td class="px-6 py-4 border-b border-gray-300">
+                                    @if ($solicitacao->arquivo_pdf)
+                                        <a href="{{ route('solicitacoes.viewPdf', $solicitacao->id) }}" target="_blank" class="text-blue-500 hover:underline">Ver PDF</a>
+                                    @else
+                                        <span class="text-gray-500">Nenhum PDF enviado</span>
+                                    @endif
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>

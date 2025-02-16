@@ -73,6 +73,22 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/solicitacoes/create', [SolicitacaoExameController::class, 'create'])->name('solicitacoes.create');
     Route::post('/solicitacoes', [SolicitacaoExameController::class, 'store'])->name('solicitacoes.store');
 
+    // Rota para exibir o formulário de upload (GET)
+    Route::get('/solicitacoes/{id}/upload-pdf', [SolicitacaoExameController::class, 'showUploadForm'])
+        ->name('solicitacoes.showUploadForm')
+        ->middleware('auth');
+
+    // Rota para processar o upload do PDF (POST)
+    Route::post('/solicitacoes/{id}/upload-pdf', [SolicitacaoExameController::class, 'uploadPdf'])
+        ->name('solicitacoes.uploadPdf')
+        ->middleware('auth');
+
+    // Rota para baixar o PDF
+
+    Route::get('/solicitacoes/{id}/view-pdf', [SolicitacaoExameController::class, 'viewPdf'])
+        ->name('solicitacoes.viewPdf')
+        ->middleware('auth');
+
 
 });
 

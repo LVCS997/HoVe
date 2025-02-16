@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\SolicitacaoExame;
 use App\Models\SolicitacaoExameItem;
 use App\Models\Medico;
+use Illuminate\Support\Facades\Storage;
 
 class SolicitacaoExameController extends Controller
 {
@@ -84,4 +85,57 @@ class SolicitacaoExameController extends Controller
 
         return redirect()->route('solicitacoes.index')->with('success', 'Solicitação de exame criada com sucesso!');
     }
+
+    public function viewPdf($id)
+    {
+        $solicitacao = SolicitacaoExame::findOrFail($id);
+
+        // Verifica se o usuário tem permissão para visualizar o PDF
+//        if (!auth()->user()->CheckRole(['Medico', 'Admin'])) {
+//            return redirect()->route('solicitacoes.index')->with('error', 'Acesso negado.');
+//        }
+
+        // Verifica se o arquivo PDF existe
+        if (!$solicitacao->arquivo_pdf || !Storage::exists($solicitacao->arquivo_pdf)) {
+            return redirect()->route('solicitacoes.index')->with('error', 'Arquivo PDF não encontrado.');
+        }
+
+        // Retorna o arquivo PDF para visualização
+        return response()->file(storage_path('app/public/' . $solicitacao->arquivo_pdf));
+    }
+
+    // Método para exibir a página de upload de PDF
+    public function showUploadForm($id)
+    {
+        $solicitacao = SolicitacaoExame::findOrFail($id);
+        return view('solicitacoes.upload-pdf', compact('solicitacao'));
+    }
+
+    // Método para processar o upload do PDF
+    public function uploadPdf(Request $request, $id)
+    {
+
+        // Verifica se o usuário tem a role de Laboratório
+        //if (!auth()->user()->hasRole('Laboratorio')) {
+        //    return redirect()->route('solicitacoes.index')->with('error', 'Acesso negado.');
+        //}
+
+        $request->validate([
+            'arquivo_pdf' => 'required|mimes:pdf|max:2048', // Aceita apenas arquivos PDF de até 2MB
+        ]);
+
+        $solicitacao = SolicitacaoExame::findOrFail($id);
+
+        // Salva o arquivo PDF no storage
+        if ($request->hasFile('arquivo_pdf')) {
+            $arquivo = $request->file('arquivo_pdf');
+            $caminho = $arquivo->store('pdfs', 'public'); // Armazena na pasta "storage/app/public/pdfs"
+            $solicitacao->arquivo_pdf = $caminho;
+            $solicitacao->save();
+        }
+
+        return redirect()->route('solicitacoes.index')->with('success', 'Arquivo PDF enviado com sucesso!');
+    }
+
+
 }

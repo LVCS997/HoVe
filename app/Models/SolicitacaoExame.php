@@ -16,6 +16,7 @@ class SolicitacaoExame extends Model
         'medico_id',
         'data_solicitacao',
         'status',
+        'arquivo_pdf',
     ];
 
     protected $casts = [
