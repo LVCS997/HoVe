@@ -123,4 +123,20 @@ class PetController extends Controller
         $pet->delete();
         return redirect()->route('pets.index')->with('success', 'Pet excluído com sucesso!');
     }
+
+    public function buscarPorCpf(Request $request)
+    {
+        $cpf = $request->query('cpf');
+
+        // Busca o dono pelo CPF
+        $owner = Owner::where('cpf', $cpf)->first();
+
+        if ($owner) {
+            // Busca os pets associados ao dono
+            $pets = $owner->pets;
+            return response()->json($pets);
+        }
+
+        return response()->json([]); // Retorna uma lista vazia se não encontrar o dono
+    }
 }

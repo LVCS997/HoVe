@@ -1,8 +1,6 @@
 <?php
-
+use App\Http\Controllers\SolicitacaoExameController;
 use App\Http\Controllers\Auth\LoginController;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -62,11 +60,18 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/owners/buscar-por-cpf', [OwnerController::class, 'buscarPorCpf'])->name('owners.buscar-por-cpf');
 
+    Route::get('/buscar-pets', [PetController::class, 'buscarPorCpf'])->name('pets.buscarPorCpf');
+
 // Rotas para Owner
     Route::resource('owners', OwnerController::class);
 
 // Rotas para Pet
     Route::resource('pets', PetController::class);
+
+
+    Route::get('/solicitacoes', [SolicitacaoExameController::class, 'index'])->name('solicitacoes.index');
+    Route::get('/solicitacoes/create', [SolicitacaoExameController::class, 'create'])->name('solicitacoes.create');
+    Route::post('/solicitacoes', [SolicitacaoExameController::class, 'store'])->name('solicitacoes.store');
 
 
 });
