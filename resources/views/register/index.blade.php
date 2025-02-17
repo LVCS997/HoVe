@@ -72,6 +72,7 @@
             <label class="block text-gray-700 text-sm font-bold mb-2">Papel (Role)</label>
             <select name="role" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                 <option value="admin">Administrador</option>
+                <option value="laboratorio">Laboratório</option>
                 <option value="veterinario">Veterinário</option>
                 <option value="atendente">Atendente</option>
                 <option value="user" selected>Usuário Padrão</option>

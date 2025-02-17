@@ -15,6 +15,7 @@
                             <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm font-semibold text-gray-700">Data</th>
                             <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm font-semibold text-gray-700">Status</th>
                             <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm font-semibold text-gray-700">Exames</th>
+                            <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm font-semibold text-gray-700">Ações</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -25,13 +26,13 @@
                                 <td class="px-6 py-4 border-b border-gray-300">{{ $solicitacao->medico->nome }}</td>
                                 <td class="px-6 py-4 border-b border-gray-300">{{ $solicitacao->data_solicitacao->format('d/m/Y H:i') }}</td>
                                 <td class="px-6 py-4 border-b border-gray-300">
-                                        <span class="px-2 py-1 text-sm font-semibold rounded-full
-                                            @if($solicitacao->status === 'Pendente') bg-yellow-100 text-yellow-800
-                                            @elseif($solicitacao->status === 'Em andamento') bg-blue-100 text-blue-800
-                                            @else bg-green-100 text-green-800
-                                            @endif">
-                                            {{ $solicitacao->status }}
-                                        </span>
+                                    <span class="px-2 py-1 text-sm font-semibold rounded-full
+                                        @if($solicitacao->status === 'Pendente') bg-yellow-100 text-yellow-800
+                                        @elseif($solicitacao->status === 'Em andamento') bg-blue-100 text-blue-800
+                                        @else bg-green-100 text-green-800
+                                        @endif">
+                                        {{ $solicitacao->status }}
+                                    </span>
                                 </td>
                                 <td class="px-6 py-4 border-b border-gray-300">
                                     <ul class="list-disc list-inside">
@@ -47,11 +48,14 @@
                                     </ul>
                                 </td>
                                 <td class="px-6 py-4 border-b border-gray-300">
-                                    @if ($solicitacao->arquivo_pdf)
-                                        <a href="{{ route('solicitacoes.viewPdf', $solicitacao->id) }}" target="_blank" class="text-blue-500 hover:underline">Ver PDF</a>
-                                    @else
-                                        <span class="text-gray-500">Nenhum PDF enviado</span>
-                                    @endif
+                                    <div class="flex space-x-2">
+                                        <a href="{{ route('solicitacoes.show', $solicitacao->id) }}" class="text-blue-500 hover:underline">Detalhes</a>
+                                        @if ($solicitacao->arquivo_pdf)
+                                            <a href="{{ route('solicitacoes.viewPdf', $solicitacao->id) }}" target="_blank" class="text-blue-500 hover:underline">Ver PDF</a>
+                                        @else
+                                            <span class="text-gray-500">Nenhum PDF enviado</span>
+                                        @endif
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach

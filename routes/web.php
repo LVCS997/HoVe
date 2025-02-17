@@ -26,7 +26,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
             'name' => 'required|string|max:255',
             'cpf' => 'required|string|unique:users|max:11|min:11', // CPF único e com no máximo 14 caracteres
             'password' => 'required|string|min:8|confirmed', // Senha com confirmação
-            'role' => 'required|string|in:admin,veterinario,atendente,user', // Papel válido
+            'role' => 'required|string|in:admin,laboratorio,veterinario,atendente,user', // Papel válido
         ]);
 
         // Criar o Usuário
@@ -72,6 +72,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/solicitacoes', [SolicitacaoExameController::class, 'index'])->name('solicitacoes.index');
     Route::get('/solicitacoes/create', [SolicitacaoExameController::class, 'create'])->name('solicitacoes.create');
     Route::post('/solicitacoes', [SolicitacaoExameController::class, 'store'])->name('solicitacoes.store');
+    Route::get('/solicitacoes/{id}', [SolicitacaoExameController::class, 'show'])->name('solicitacoes.show');
+
+
+    Route::put('/solicitacoes/{id}/status', [SolicitacaoExameController::class, 'updateStatus'])->name('solicitacoes.updateStatus');
+
+
 
     // Rota para exibir o formulário de upload (GET)
     Route::get('/solicitacoes/{id}/upload-pdf', [SolicitacaoExameController::class, 'showUploadForm'])

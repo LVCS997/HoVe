@@ -116,9 +116,9 @@ class SolicitacaoExameController extends Controller
     {
 
         // Verifica se o usuário tem a role de Laboratório
-        //if (!auth()->user()->hasRole('Laboratorio')) {
-        //    return redirect()->route('solicitacoes.index')->with('error', 'Acesso negado.');
-        //}
+        if (!auth()->user()->CheckRole('laboratorio')) {
+            return redirect()->route('solicitacoes.index')->with('error', 'Acesso negado.');
+        }
 
         $request->validate([
             'arquivo_pdf' => 'required|mimes:pdf|max:2048', // Aceita apenas arquivos PDF de até 2MB
@@ -135,6 +135,31 @@ class SolicitacaoExameController extends Controller
         }
 
         return redirect()->route('solicitacoes.index')->with('success', 'Arquivo PDF enviado com sucesso!');
+    }
+
+    public function show($id)
+    {
+        $solicitacao = SolicitacaoExame::with(['pet.owner', 'medico', 'itens.exame', 'itens.categoria', 'itens.subcategoria'])
+            ->findOrFail($id);
+
+        return view('solicitacoes.show', compact('solicitacao'));
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        if (!auth()->user()->CheckRole('Laboratorio')) {
+            return redirect()->route('solicitacoes.index')->with('error', 'Acesso negado.');
+        }
+
+        $request->validate([
+            'status' => 'required|in:Pendente,Em andamento,Concluído',
+        ]);
+
+        $solicitacao = SolicitacaoExame::findOrFail($id);
+        $solicitacao->status = $request->status;
+        $solicitacao->save();
+
+        return redirect()->route('solicitacoes.show', $solicitacao->id)->with('success', 'Status atualizado com sucesso!');
     }
 
 
