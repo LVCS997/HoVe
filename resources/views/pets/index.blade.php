@@ -1,9 +1,32 @@
 <x-layout>
     <div class="container mx-auto p-4">
         <h1 class="text-3xl font-bold mb-6 text-center">Lista de Pets</h1>
+
+        <!-- Mensagens de feedback -->
+        @if (session('success'))
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        <!-- Formulário de busca por CPF -->
+        <form action="{{ route('pets.buscar-pet-por-cpf') }}" method="GET" class="mb-4">
+            <div class="flex">
+                <input type="text" id="filter-cpf" name="cpf" placeholder="Digite o CPF do dono" class="border border-gray-300 rounded-l px-4 py-2 w-full">
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-r hover:bg-blue-600">Buscar</button>
+            </div>
+        </form>
+
         <a href="{{ route('pets.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded mb-4 inline-block hover:bg-blue-600">
             Adicionar Pet
         </a>
+
         <div class="bg-white shadow-md rounded-lg overflow-hidden">
             <table class="min-w-full">
                 <thead class="bg-gray-200">
@@ -40,5 +63,14 @@
         </div>
     </div>
 
-
+    <!-- Script para máscaras -->
+    <script src="https://cdn.jsdelivr.net/npm/cleave.js/dist/cleave.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/cleave.js/dist/addons/cleave-phone.br.js"></script>
+    <script>
+        new Cleave('#filter-cpf', {
+            blocks: [3, 3, 3, 2],
+            delimiters: ['.', '.', '-'],
+            numericOnly: true
+        });
+    </script>
 </x-layout>

@@ -18,12 +18,12 @@ return new class extends Migration
             $table->string('raca');
             $table->integer('idade');
             $table->enum('sexo', ['Macho', 'Femea']);
-            $table->decimal('peso', 5, 2)->nullable();
+            $table->decimal('peso', 5, 2)->default(0);
             $table->enum('porte', ['Pequeno', 'Médio', 'Grande', 'Não Definido'])->default('Não Definido');
             $table->boolean('castrado')->default('Não');
             $table->boolean('vacinas')->default(false);
-            $table->string('onde_vacinado')->nullable();
-            $table->text('anamnese')->nullable();
+            $table->string('onde_vacinado')->default('Não Definido');
+            $table->text('anamnese')->default('Não Definido');
             $table->foreignId('owner_id')->constrained()->onDelete('cascade');
 
             // Novos campos

@@ -139,4 +139,25 @@ class PetController extends Controller
 
         return response()->json([]); // Retorna uma lista vazia se não encontrar o dono
     }
+
+    public function buscarPetPorCpf(Request $request)
+    {
+
+        $cpf = $request->query('cpf');
+
+        // Busca o dono pelo CPF
+        $owner = Owner::where('cpf', $cpf)->first();
+
+        if ($owner) {
+            // Busca os pets associados ao dono
+            $pets = $owner->pets;
+        } else {
+            // Se não encontrar o dono, retorna uma mensagem de erro
+            return redirect()->route('pets.index')->with('error', 'Nenhum dono encontrado com o CPF informado.');
+        }
+
+        return view('pets.index', ['pets' => $pets]);
+    }
+
+
 }

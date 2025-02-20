@@ -1,8 +1,13 @@
 <x-layout>
     <div class="container mx-auto p-4">
         <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">Detalhes do Dono/Responsável</h1>
-        <div class="bg-white shadow-lg rounded-lg p-6 max-w-4xl mx-auto">
-            <!-- Detalhes do Dono -->
+
+        <!-- Card de Detalhes do Dono -->
+        <div class="bg-white shadow-lg rounded-lg p-6 max-w-4xl mx-auto mb-8">
+            <!-- Título da Seção -->
+            <h2 class="text-2xl font-semibold text-gray-700 mb-6">Informações do Dono</h2>
+
+            <!-- Grid para Detalhes do Dono -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Coluna 1 -->
                 <div class="space-y-4">
@@ -88,14 +93,61 @@
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Botão Voltar -->
-            <div class="mt-8 text-center">
-                <a href="{{ route('owners.index') }}" class="inline-flex items-center bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500">
-                    <i data-feather="arrow-left" class="w-5 h-5 mr-2"></i>
-                    Voltar
-                </a>
-            </div>
+        <!-- Card de Lista de Pets -->
+        <div class="bg-white shadow-lg rounded-lg p-6 max-w-4xl mx-auto">
+            <!-- Título da Seção -->
+            <h2 class="text-2xl font-semibold text-gray-700 mb-6">Pets Associados</h2>
+
+            <!-- Verifica se há pets -->
+            @if ($owner->pets->isEmpty())
+                <p class="text-gray-600 text-center">Nenhum pet associado a este dono.</p>
+            @else
+                <!-- Tabela de Pets -->
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white">
+                        <thead class="bg-gray-200">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">ID</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Nome</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Espécie</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Raça</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Idade</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Ações</th>
+                        </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                        @foreach ($owner->pets as $pet)
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4">{{ $pet->id }}</td>
+                                <td class="px-6 py-4">{{ $pet->nome }}</td>
+                                <td class="px-6 py-4">{{ $pet->especie }}</td>
+                                <td class="px-6 py-4">{{ $pet->raca }}</td>
+                                <td class="px-6 py-4">{{ $pet->idade }} anos</td>
+                                <td class="px-6 py-4 space-x-2">
+                                    <a href="{{ route('pets.show', $pet->id) }}" class="text-blue-500 hover:text-blue-700">Ver</a>
+                                    <a href="{{ route('pets.edit', $pet->id) }}" class="text-yellow-500 hover:text-yellow-700">Editar</a>
+                                    <form action="{{ route('pets.destroy', $pet->id) }}" method="POST" class="inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-red-500 hover:text-red-700" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            @endif
+        </div>
+
+        <!-- Botão Voltar -->
+        <div class="mt-8 text-center">
+            <a href="{{ route('owners.index') }}" class="inline-flex items-center bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500">
+                <i data-feather="arrow-left" class="w-5 h-5 mr-2"></i>
+                Voltar
+            </a>
         </div>
     </div>
 

@@ -62,6 +62,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/buscar-pets', [PetController::class, 'buscarPorCpf'])->name('pets.buscarPorCpf');
 
+    Route::get('/pets/buscar-por-cpf', [PetController::class, 'buscarPetPorCpf'])->name('pets.buscar-pet-por-cpf');
+
 // Rotas para Owner
     Route::resource('owners', OwnerController::class);
 
