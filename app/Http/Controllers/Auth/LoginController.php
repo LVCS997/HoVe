@@ -17,15 +17,31 @@ class LoginController extends Controller
     // Método para processar o login
     public function login(Request $request)
     {
+
         // Validação dos dados
-        $credentials = $request->validate([
-            'cpf' => 'required', // Usando CPF em vez de email
-            'password' => 'required',
+        $request->validate([
+            'cpf' => 'required|string',
+            'password' => 'required|string',
         ]);
+
+        // Remove a formatação do CPF
+        $cpf = preg_replace('/[^0-9]/', '', $request->cpf);
+
+        $credentials = [
+            'cpf' => $cpf,
+            'password' => $request->password
+        ];
+
 
         // Tentativa de autenticação
         if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
+            $user = Auth::user();
+
+            // Verificar se é um veterinário e se ainda não completou o perfil
+            if ($user->role === 'veterinario' && !$user->medico) {
+                return redirect()->route('medico.completar-perfil', $user->id);
+            }
+
             return redirect()->intended('/');
         }
 

@@ -101,10 +101,20 @@
         </div>
     </div>
 
+    <!-- Script para máscaras -->
+    <script src="https://cdn.jsdelivr.net/npm/cleave.js/dist/cleave.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/cleave.js/dist/addons/cleave-phone.br.js"></script>
+
     <!-- Script para carregar ícones -->
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <script>
         feather.replace();
+
+        new Cleave('#filter-cpf', {
+            blocks: [3, 3, 3, 2],
+            delimiters: ['.', '.', '-'],
+            numericOnly: true
+        });
 
         function toggleSection(sectionId) {
             const section = document.getElementById(sectionId);

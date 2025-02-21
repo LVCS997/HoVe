@@ -46,5 +46,16 @@
         </button>
     </form>
 </div>
+
+<!-- Script para máscaras -->
+<script src="https://cdn.jsdelivr.net/npm/cleave.js/dist/cleave.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/cleave.js/dist/addons/cleave-phone.br.js"></script>
+<script>
+    new Cleave('#cpf', {
+        blocks: [3, 3, 3, 2],
+        delimiters: ['.', '.', '-'],
+        numericOnly: true
+    });
+</script>
 </body>
 </html>

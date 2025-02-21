@@ -1,6 +1,9 @@
 <?php
+
+use App\Http\Controllers\MedicoController;
 use App\Http\Controllers\SolicitacaoExameController;
 use App\Http\Controllers\Auth\LoginController;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -18,24 +21,42 @@ Route::middleware(['auth', 'admin'])->group(function () {
     })->name('register');
 
     Route::post('/register', function (Request $request) {
-        // Remove a formatação do CPF
-        $cpf = preg_replace('/[^0-9]/', '', $request->cpf);
 
         // Validação dos dados
-        $user = $request->validate([
+        $request->validate([
             'name' => 'required|string|max:255',
-            'cpf' => 'required|string|unique:users|max:11|min:11', // CPF único e com no máximo 14 caracteres
+            'cpf' => 'required|string|unique:users', // CPF único e com no máximo 14 caracteres
             'password' => 'required|string|min:8|confirmed', // Senha com confirmação
             'role' => 'required|string|in:admin,laboratorio,veterinario,atendente,user', // Papel válido
         ]);
 
+        // Remove a formatação do CPF
+        $cpf = preg_replace('/[^0-9]/', '', $request->cpf);
+
+        $credentials = [
+            'name' => $request['name'],
+            'cpf' => $cpf,
+            'password' => $request['password'],
+            'role' => $request['role']
+        ];
+
+
         // Criar o Usuário
-        User::create($request->all());
+        $user = User::create($credentials);
+
+        // Se o usuário for um veterinário, redirecionar para completar o perfil
+        if ($user->role === 'veterinario') {
+            return redirect()->route('medico.completar-perfil', $user->id);
+        }
 
         return redirect('/register')->with('success', 'Usuário registrado com sucesso!');
     });
 
 });
+
+Route::get('/medico/completar-perfil/{user}', [MedicoController::class, 'completarPerfil'])->name('medico.completar-perfil');
+Route::post('/medico/completar-perfil/{user}', [MedicoController::class, 'salvarPerfil'])->name('medico.salvar-perfil');
+
 
 // Rotas para Login
 
@@ -56,7 +77,7 @@ Route::middleware(['auth'])->group(function () {
 // Rotas para menu
     Route::get('/', function () {
         return view('welcome');
-    });
+    })->name('home');
 
     Route::get('/owners/buscar-por-cpf', [OwnerController::class, 'buscarPorCpf'])->name('owners.buscar-por-cpf');
 

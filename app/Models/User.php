@@ -49,6 +49,11 @@ class User extends Authenticatable
         return $this->role === $role;
     }
 
+    public function medico()
+    {
+        return $this->hasOne(Medico::class);
+    }
+
     protected function casts(): array
     {
         return [

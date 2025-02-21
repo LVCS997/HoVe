@@ -48,6 +48,8 @@
     <div class="p-6">
         <div class="mb-4">
             <p class="text-gray-800 font-semibold">Nome: {{ auth()->user()->name }}</p>
+            <p class="text-gray-800 font-semibold">Papel: {{ ucwords(auth()->user()->role) }}</p>
+
         </div>
         <div>
             <a href="/logout">
