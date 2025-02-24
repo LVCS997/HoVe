@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('solicitacoes_exames', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('paciente_id')->constrained('pacientes')->onDelete('cascade');
+            $table->foreignId('pet_id')->constrained('pets', 'id')->onDelete('cascade');
             $table->foreignId('medico_id')->constrained('medicos')->onDelete('cascade');
             $table->timestamp('data_solicitacao')->useCurrent();
             $table->enum('status', ['Pendente', 'Em andamento', 'Concluído'])->default('Pendente');

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->enum('sexo', ['Macho', 'Femea'])->nullable();
             $table->decimal('peso', 5, 2)->default(0)->nullable();
             $table->enum('porte', ['Pequeno', 'Médio', 'Grande', 'Não Definido'])->default('Não Definido')->nullable();
-            $table->boolean('castrado')->default('Não')->nullable();
+            $table->boolean('castrado')->default(false)->nullable();
             $table->boolean('vacinas')->default(false)->nullable();
             $table->string('onde_vacinado')->default('Não Definido')->nullable();
             $table->text('anamnese')->default('Não Definido')->nullable();
