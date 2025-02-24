@@ -16,6 +16,11 @@ class Medico extends Model
         'especialidade',
     ];
 
+    public function examesClinicos()
+    {
+        return $this->hasMany(ExameClinico::class);
+    }
+
     public function user(){
         return $this->belongsTo(User::class);
     }

@@ -46,7 +46,7 @@
 
             <!-- Seção de Informações do Dono -->
             <div class="mb-8">
-                <h2 class="text-2xl font-semibold text-gray-700 mb-4">Informações do Dono</h2>
+                <h2 class="text-2xl font-semibold text-gray-700 mb-4">Informações do Tutor</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="bg-gray-50 p-4 rounded-lg">
                         <p class="text-gray-600"><strong>Nome:</strong> {{ $pet->owner->nome ?? 'Não informado' }}</p>
@@ -62,6 +62,12 @@
                         <p class="text-gray-600"><strong>Cidade/UF:</strong> {{ $pet->owner->cidade ?? 'Não informado' }}/{{ $pet->owner->estado ?? 'Não informado' }}</p>
                     </div>
                 </div>
+            </div>
+
+            <div class="text-center mt-6">
+                <a href="{{ route('pets.historico-clinico', $pet->id) }}" class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition duration-300">
+                    Ver Histórico Clínico
+                </a>
             </div>
 
             <!-- Botão de Voltar -->

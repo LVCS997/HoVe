@@ -1,6 +1,6 @@
 <x-layout>
     <div class="container mx-auto p-4">
-        <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">Adicionar Dono/Responsável</h1>
+        <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">Adicionar Tutor/Responsável</h1>
         <div class="bg-white shadow-lg rounded-lg p-6 max-w-4xl mx-auto">
             <form action="{{ route('owners.store') }}" method="POST">
                 @csrf
@@ -20,16 +20,16 @@
                             @enderror
                         </div>
 
-                        <!-- Campo RG -->
-                        <div class="mb-6">
-                            <label for="rg" class="block text-gray-700 font-medium mb-2">RG</label>
-                            <input type="text" id="rg" name="rg" value="{{ old('rg') }}"
-                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                   required>
-                            @error('rg')
-                            <span class="text-red-500 text-sm">{{ $message }}</span>
-                            @enderror
-                        </div>
+{{--                        <!-- Campo RG -->--}}
+{{--                        <div class="mb-6">--}}
+{{--                            <label for="rg" class="block text-gray-700 font-medium mb-2">RG</label>--}}
+{{--                            <input type="text" id="rg" name="rg" value="{{ old('rg') }}"--}}
+{{--                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"--}}
+{{--                                   required>--}}
+{{--                            @error('rg')--}}
+{{--                            <span class="text-red-500 text-sm">{{ $message }}</span>--}}
+{{--                            @enderror--}}
+{{--                        </div>--}}
 
                         <!-- Campo Telefone -->
                         <div class="mb-6">
@@ -172,15 +172,16 @@
     <!-- Script para máscaras -->
     <script src="https://cdn.jsdelivr.net/npm/cleave.js/dist/cleave.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/cleave.js/dist/addons/cleave-phone.br.js"></script>
+
     <script>
         feather.replace(); // Inicializa os ícones
 
         // Aplicar máscaras aos campos
-        new Cleave('#rg', {
-            blocks: [2, 3, 3, 1],
-            delimiter: '.',
-            numericOnly: true
-        });
+        // new Cleave('#rg', {
+        //     blocks: [2, 3, 3, 1],
+        //     delimiter: '.',
+        //     numericOnly: true
+        // });
 
         new Cleave('#cpf', {
             blocks: [3, 3, 3, 2],

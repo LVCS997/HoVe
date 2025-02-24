@@ -1,6 +1,6 @@
 <x-layout>
     <div class="container mx-auto p-4">
-        <h1 class="text-3xl font-bold mb-6 text-center">Lista de Pets</h1>
+        <h1 class="text-3xl font-bold mb-6 text-center">Lista de Pets Cadastrados</h1>
 
         <!-- Mensagens de feedback -->
         @if (session('success'))
@@ -47,10 +47,11 @@
                         <td class="px-6 py-4">{{ $pet->especie }}</td>
                         <td class="px-6 py-4">{{ $pet->raca }}</td>
                         <td class="px-6 py-4">{{ $pet->idade }} anos</td>
-                        <td class="px-6 py-4 space-x-2">
+                        <td class="px-6 py-4">
                             <a href="{{ route('pets.show', $pet->id) }}" class="text-blue-500 hover:text-blue-700">Ver</a>
                             <a href="{{ route('pets.edit', $pet->id) }}" class="text-yellow-500 hover:text-yellow-700">Editar</a>
-                            <form action="{{ route('pets.destroy', $pet->id) }}" method="POST" class="inline">
+                            <a href="{{ route('exame-clinico.create', $pet->id) }}" class="text-green-500 hover:text-green-700 {{auth()->user()->role !== 'veterinario' ? 'hidden' : ''}}">Exame Clínico</a>
+                            <form action="{{ route('pets.destroy', $pet->id) }}" method="POST" class="inline {{auth()->user()->role !== 'admin' ? 'hidden' : ''}}">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="text-red-500 hover:text-red-700" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</button>
@@ -60,6 +61,10 @@
                 @endforeach
                 </tbody>
             </table>
+        </div>
+        <!-- Links de Paginação -->
+        <div class="mt-6">
+            {{ $pets->links() }}
         </div>
     </div>
 

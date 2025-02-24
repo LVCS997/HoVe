@@ -15,12 +15,14 @@ class OwnerController extends Controller
         // Obtém o valor do filtro (CPF) da requisição
         $cpf = $request->query('cpf');
 
-        // Filtra os donos com base no CPF (se fornecido)
+        // Filtra os donos com base no CPF (se fornecido), ordena pelo mais recente e aplica a paginação
         $owners = Owner::when($cpf, function ($query, $cpf) {
             return $query->where('cpf', 'like', "%{$cpf}%");
-        })->get();
+        })
+            ->orderBy('created_at', 'desc') // Ordena pelo mais recente primeiro
+            ->paginate(10); // 10 itens por página
 
-        // Retorna a view com os donos filtrados
+        // Retorna a view com os donos filtrados e ordenados
         return view('owners.index', compact('owners'));
     }
 
@@ -41,7 +43,7 @@ class OwnerController extends Controller
 
         $request->validate([
             'nome' => 'required',
-            'rg' => 'required|unique:owners',
+            //'rg' => 'required|unique:owners',
             'telefone' => 'required',
             'data_nascimento' => 'required|date',
             'cpf' => 'required|unique:owners',
@@ -54,8 +56,9 @@ class OwnerController extends Controller
             'complemento' => 'nullable',
         ]);
 
-        Owner::create($request->all());
-        return redirect()->route('owners.index')->with('message', 'Responsável cadastrado com sucesso!.');
+
+        Owner::create(request()->all());
+        return redirect()->route('pets.create')->with('message', 'Responsável cadastrado com sucesso!.');
     }
 
     /**

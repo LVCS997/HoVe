@@ -8,15 +8,22 @@ use Illuminate\Http\Request;
 
 class MedicoController extends Controller
 {
-    // Exibir formulário para completar perfil
     public function completarPerfil(User $user)
     {
+        // Verifica se o usuário autenticado é o mesmo que está tentando salvar o perfil
+        if (auth()->user()->id !== $user->id || auth()->user()->role !== 'veterinario') {
+            redirect('register');
+        }
+
         return view('medico.completar-perfil', compact('user'));
     }
 
-    // Salvar informações do perfil
     public function salvarPerfil(Request $request, User $user)
     {
+        // Verifica se o usuário autenticado é o mesmo que está tentando salvar o perfil
+        if (auth()->user()->id !== $user->id || auth()->user()->role !== 'veterinario') {
+            redirect('register');
+        }
 
         $request->validate([
             'crmv' => 'required|string|unique:medicos,crmv',

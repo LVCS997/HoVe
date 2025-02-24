@@ -1,16 +1,16 @@
 <x-layout>
     <div class="container mx-auto p-4">
-        <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">Solicitações de Exames</h1>
+        <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">Requisições de Exames</h1>
         <div class="bg-white shadow-lg rounded-lg p-6">
             @if ($solicitacoes->isEmpty())
-                <p class="text-gray-600 text-center">Nenhuma solicitação de exame encontrada.</p>
+                <p class="text-gray-600 text-center">Nenhuma requisição de exame encontrada.</p>
             @else
                 <div class="overflow-x-auto">
                     <table class="min-w-full bg-white">
                         <thead>
                         <tr>
                             <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm font-semibold text-gray-700">Pet</th>
-                            <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm font-semibold text-gray-700">Dono</th>
+                            <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm font-semibold text-gray-700">Tutor</th>
                             <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm font-semibold text-gray-700">Médico</th>
                             <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm font-semibold text-gray-700">Data</th>
                             <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm font-semibold text-gray-700">Status</th>

@@ -26,7 +26,7 @@ class SolicitacaoExameController extends Controller
     public function create()
     {
         $exames = Exame::with('categorias.subcategorias')->get();
-        $medicos = Medico::all();
+        $medicos = Medico::all()->where('user_id', auth()->user()->id);
         return view('solicitacoes.create', compact('exames', 'medicos'));
     }
 
@@ -47,7 +47,7 @@ class SolicitacaoExameController extends Controller
         $owner = Owner::where('cpf', $cpf)->first();
 
         if (!$owner || !$owner->pets->contains($request->pet_id)) {
-            return redirect()->back()->withErrors(['pet_id' => 'O pet selecionado não pertence ao dono informado.']);
+            return redirect()->back()->withErrors(['pet_id' => 'O pet selecionado não pertence ao tutor informado.']);
         }
 
         // Criar a solicitação de exame

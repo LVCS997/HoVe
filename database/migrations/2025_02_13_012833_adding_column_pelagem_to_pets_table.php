@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('pets', function (Blueprint $table) {
-            $table->string('pelagem')->default('Não Definido');
+            $table->string('pelagem')->default('Não Definido')->nullable();
         });
     }
 

@@ -20,10 +20,10 @@ class ExamesSeeder extends Seeder
             'Abdômen' => [],
             'Pelve' => [],
             'Pescoço' => [],
-            'Crânio' => ['ATM', 'Mandíbula', 'Maxilar', 'Bulas Timpânicas', 'Seios Nasais', 'Calota Craniana'],
-            'Coluna' => ['Cervical', 'Cervitorácica', 'Toracolombar', 'Lombar', 'Lombossacra', 'Caudal'],
-            'Membro Torácico' => ['Esquerdo', 'Direito', 'Escápula', 'Ombro', 'Úmero', 'Cotovelo', 'Rádio e Ulna', 'Carpo', 'Dígitos'],
-            'Membro Pélvico' => ['Esquerdo', 'Direito', 'Coxofemoral', 'Fêmur', 'Joelho', 'Tíbia e Fíbula', 'Tarso', 'Dígitos'],
+            'Crânio' => ['Crânio','ATM', 'Mandíbula', 'Maxilar', 'Bulas Timpânicas', 'Seios Nasais', 'Calota Craniana'],
+            'Coluna' => ['Coluna', 'Cervical', 'Cervitorácica', 'Toracolombar', 'Lombar', 'Lombossacra', 'Caudal'],
+            'Membro Torácico' => ['Membro Torácico','Esquerdo', 'Direito', 'Escápula', 'Ombro', 'Úmero', 'Cotovelo', 'Rádio e Ulna', 'Carpo', 'Dígitos'],
+            'Membro Pélvico' => ['Membro Pélvico', 'Esquerdo', 'Direito', 'Coxofemoral', 'Fêmur', 'Joelho', 'Tíbia e Fíbula', 'Tarso', 'Dígitos'],
         ];
 
         foreach ($categoriasRadiografia as $categoria => $subcategorias) {
@@ -73,7 +73,7 @@ class ExamesSeeder extends Seeder
             'Tórax' => [],
             'Abdômen' => [],
             'Pescoço' => [],
-            'Crânio' => ['Bulas Timpânicas', 'Seios Nasais', 'Encéfalo'],
+            'Crânio' => ['Crânio', 'Bulas Timpânicas', 'Seios Nasais', 'Encéfalo'],
         ];
 
         foreach ($categoriasTomografia as $categoria => $subcategorias) {

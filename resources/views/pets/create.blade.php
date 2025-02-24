@@ -14,7 +14,7 @@
                             <label for="nome" class="block text-gray-700 font-medium mb-2">Nome</label>
                             <input type="text" id="nome" name="nome" value="{{ old('nome') }}"
                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                   required>
+                                   >
                             @error('nome')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
                             @enderror
@@ -25,7 +25,7 @@
                             <label for="especie" class="block text-gray-700 font-medium mb-2">Espécie</label>
                             <select id="especie" name="especie"
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    required>
+                                    >
                                 <option value="Canino">Canino</option>
                                 <option value="Felino">Felino</option>
                             </select>
@@ -39,7 +39,7 @@
                             <label for="raca" class="block text-gray-700 font-medium mb-2">Raça</label>
                             <input type="text" id="raca" name="raca" value="{{ old('raca') }}"
                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                   required>
+                                   >
                             @error('raca')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
                             @enderror
@@ -50,7 +50,7 @@
                             <label for="idade" class="block text-gray-700 font-medium mb-2">Idade</label>
                             <input type="number" id="idade" name="idade" value="{{ old('idade') }}"
                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                   required>
+                                   >
                             @error('idade')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
                             @enderror
@@ -61,7 +61,7 @@
                             <label for="sexo" class="block text-gray-700 font-medium mb-2">Sexo</label>
                             <select id="sexo" name="sexo"
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    required>
+                                    >
                                 <option value="Macho">Macho</option>
                                 <option value="Femea">Fêmea</option>
                             </select>
@@ -78,7 +78,7 @@
                             <label for="porte" class="block text-gray-700 font-medium mb-2">Porte</label>
                             <select id="porte" name="porte"
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    required>
+                                    >
                                 <option value="Pequeno">Pequeno</option>
                                 <option value="Médio">Médio</option>
                                 <option value="Grande">Grande</option>
@@ -93,7 +93,7 @@
                             <label for="pelagem" class="block text-gray-700 font-medium mb-2">Pelagem</label>
                             <input type="text" id="pelagem" name="pelagem" value="{{ old('pelagem') }}"
                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                   required>
+                                   >
                             @error('pelagem')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
                             @enderror
@@ -104,7 +104,7 @@
                             <label for="castrado" class="block text-gray-700 font-medium mb-2">Castrado</label>
                             <select id="castrado" name="castrado"
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    required>
+                                    >
                                 <option value="1">Sim</option>
                                 <option value="0">Não</option>
                             </select>
@@ -118,7 +118,7 @@
                             <label for="vacinas" class="block text-gray-700 font-medium mb-2">Vacinas</label>
                             <select id="vacinas" name="vacinas"
                                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    required>
+                                    >
                                 <option value="1">Sim</option>
                                 <option value="0">Não</option>
                             </select>
@@ -141,7 +141,7 @@
 
                 <!-- Seção de Campos do Médico -->
                 @auth
-                    @if(auth()->user()->role === 'medic')
+                    @if(auth()->user()->role === 'veterinario')
                         <h2 class="text-2xl font-bold text-center my-6 text-gray-800">Campos do Médico</h2>
                         <div class="bg-gray-50 p-6 rounded-lg">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -214,6 +214,15 @@
                                     <span class="text-red-500 text-sm">{{ $message }}</span>
                                     @enderror
                                 </div>
+                                <!-- Anamnese -->
+                                <div class="mb-6">
+                                    <label for="anamnese" class="block text-gray-700 font-medium mb-2">Anamnese</label>
+                                    <textarea id="anamnese" name="anamnese" value="{{ old('anamnese') }}"
+                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                                    @error('anamnese')
+                                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
                     @endif
@@ -223,7 +232,7 @@
                 <div class="mb-6">
                     <label for="filter-cpf" class="block text-gray-700 font-medium mb-2">Buscar Dono por CPF</label>
                     <div class="flex">
-                        <input type="text" id="filter-cpf" name="filter-cpf" placeholder="Digite o CPF..."
+                        <input type="text" id="filter-cpf" value="{{ request('cpf') ? request('cpf') : ""}}" name="filter-cpf" placeholder="Digite o CPF..."
                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                         <button type="button" id="buscar-dono" class="ml-2 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
                             Buscar
@@ -243,10 +252,10 @@
                             <label class="block text-gray-700 font-medium mb-2">CPF:</label>
                             <input type="text" id="dono-cpf" class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100" readonly>
                         </div>
-                        <div>
-                            <label class="block text-gray-700 font-medium mb-2">RG:</label>
-                            <input type="text" id="dono-rg" class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100" readonly>
-                        </div>
+{{--                        <div>--}}
+{{--                            <label class="block text-gray-700 font-medium mb-2">RG:</label>--}}
+{{--                            <input type="text" id="dono-rg" class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100" readonly>--}}
+{{--                        </div>--}}
                         <div>
                             <label class="block text-gray-700 font-medium mb-2">Telefone:</label>
                             <input type="text" id="dono-telefone" class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100" readonly>
@@ -301,8 +310,20 @@
 
     <!-- Script para carregar ícones -->
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <!-- Script para máscaras -->
+    <script src="https://cdn.jsdelivr.net/npm/cleave.js/dist/cleave.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/cleave.js/dist/addons/cleave-phone.br.js"></script>
+
+
+
     <script>
         feather.replace(); // Inicializa os ícones
+
+        new Cleave('#filter-cpf', {
+            blocks: [3, 3, 3, 2],
+            delimiters: ['.', '.', '-'],
+            numericOnly: true
+        });
 
         // Script para buscar o dono
         document.getElementById('buscar-dono').addEventListener('click', function () {
@@ -316,7 +337,7 @@
                         // Preenche os campos com as informações do dono
                         document.getElementById('dono-nome').value = data.nome;
                         document.getElementById('dono-cpf').value = data.cpf;
-                        document.getElementById('dono-rg').value = data.rg;
+                        //document.getElementById('dono-rg').value = data.rg;
                         document.getElementById('dono-telefone').value = data.telefone;
                         document.getElementById('dono-cep').value = data.cep;
                         document.getElementById('dono-logradouro').value = data.logradouro;

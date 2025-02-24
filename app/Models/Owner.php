@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @method static create(array $all)
+ * @method static where(string $string, array|string $cpf)
  */
 class Owner extends Model
 {
     protected $fillable = [
         'nome',
-        'rg',
+        //'rg',
         'telefone',
         'data_nascimento',
         'cpf',

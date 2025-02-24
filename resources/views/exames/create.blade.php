@@ -15,7 +15,7 @@
 
                 <!-- Busca do Pet por CPF do Dono -->
                 <div class="mb-6">
-                    <label for="filter-cpf" class="block text-gray-700 font-medium mb-2">Buscar Dono por CPF</label>
+                    <label for="filter-cpf" class="block text-gray-700 font-medium mb-2">Buscar Tutor por CPF</label>
                     <div class="flex">
                         <input type="text" id="filter-cpf" name="filter-cpf" placeholder="Digite o CPF..."
                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">

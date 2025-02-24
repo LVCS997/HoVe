@@ -1,6 +1,6 @@
 <x-layout>
     <div class="container mx-auto p-4">
-        <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">Solicitação de Exame</h1>
+        <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">Requisição de Exame</h1>
         <div class="bg-white shadow-lg rounded-lg p-6 max-w-4xl mx-auto">
 
             <!-- Exibição da Mensagem de Sucesso -->
@@ -15,7 +15,7 @@
 
                 <!-- Busca do Pet por CPF do Dono -->
                 <div class="mb-6">
-                    <label for="filter-cpf" class="block text-gray-700 font-medium mb-2">Buscar Dono por CPF</label>
+                    <label for="filter-cpf" class="block text-gray-700 font-medium mb-2">Buscar Tutor por CPF</label>
                     <div class="flex">
                         <input type="text" id="filter-cpf" name="filter-cpf" placeholder="Digite o CPF..."
                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">

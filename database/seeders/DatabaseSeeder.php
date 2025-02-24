@@ -14,21 +14,24 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+//        // Cria 10 usuários
+//        \App\Models\User::factory(10)->create();
+//
+//        // Cria 5 médicos
+//        \App\Models\Medico::factory(5)->create();
+//
+//        // Cria 15 donos (owners)
+//        \App\Models\Owner::factory(15)->create();
+//
+//        // Cria 30 pets
+//        \App\Models\Pet::factory(30)->create();
+//
+//        // Cria 50 exames clínicos
+//        \App\Models\ExameClinico::factory(50)->create();
 
         $this->call([
             ExamesSeeder::class,
-            MedicosSeeder::class,
+            AdminSeeder::class,
         ]);
-
-        $this->call([
-            User::create([
-                'name' => 'admin',
-                'cpf' => '18396750718',
-                'password' => Hash::make('naohasenha'),
-                'role' => 'admin',
-            ])
-        ]);
-
     }
 }

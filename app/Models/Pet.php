@@ -23,7 +23,8 @@ class Pet extends Model
         'pelagem',
         'castrado',
         'vacinas',
-        'onde_vacindo',
+        'porte',
+        'onde_vacinado',
         'anamnese',
 
         // medico
@@ -37,6 +38,11 @@ class Pet extends Model
 
         'owner_id', // chave estrageira para o dono (owners)
     ];
+
+    public function examesClinicos()
+    {
+        return $this->hasMany(ExameClinico::class);
+    }
 
     public function owner(){
         return $this->belongsTo(Owner::class);

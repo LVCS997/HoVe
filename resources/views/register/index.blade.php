@@ -69,7 +69,7 @@
 
         <!-- Campo de Role (Papel) -->
         <div class="mb-6">
-            <label class="block text-gray-700 text-sm font-bold mb-2">Papel (Role)</label>
+            <label class="block text-gray-700 text-sm font-bold mb-2">Cargo (Função)</label>
             <select name="role" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                 <option value="admin">Administrador</option>
                 <option value="laboratorio">Laboratório</option>

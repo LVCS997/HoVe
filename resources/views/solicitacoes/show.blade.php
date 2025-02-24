@@ -5,7 +5,7 @@
             <div class="mb-4">
                 <h2 class="text-xl font-semibold text-gray-700">Informações do Pet</h2>
                 <p class="text-gray-600">{{ $solicitacao->pet->nome }}</p>
-                <p class="text-gray-600">Dono: {{ $solicitacao->pet->owner->nome }}</p>
+                <p class="text-gray-600">Tutor: {{ $solicitacao->pet->owner->nome }}</p>
             </div>
 
             <div class="mb-4">

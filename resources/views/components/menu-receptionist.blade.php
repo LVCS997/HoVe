@@ -3,9 +3,9 @@
 <ul>
     <!-- Componente de Item do Menu -->
     <li>
-        <a href="/" data-content="dashboard" class="menu-item flex items-center p-2 text-gray-700 hover:bg-blue-50 rounded-lg">
+        <a href="/" data-content="administrativo" class="menu-item flex items-center p-2 text-gray-700 hover:bg-blue-50 rounded-lg">
             <i class=" bi bi-house w-5 h-auto mr-2"></i>
-            Dashboard
+            Administrativo
         </a>
     </li>
     <li>

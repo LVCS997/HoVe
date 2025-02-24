@@ -15,15 +15,15 @@ return new class extends Migration
             $table->id();
             $table->string('nome');
             $table->enum('especie', ['Canino', 'Felino']);
-            $table->string('raca');
-            $table->integer('idade');
-            $table->enum('sexo', ['Macho', 'Femea']);
-            $table->decimal('peso', 5, 2)->default(0);
-            $table->enum('porte', ['Pequeno', 'Médio', 'Grande', 'Não Definido'])->default('Não Definido');
-            $table->boolean('castrado')->default('Não');
-            $table->boolean('vacinas')->default(false);
-            $table->string('onde_vacinado')->default('Não Definido');
-            $table->text('anamnese')->default('Não Definido');
+            $table->string('raca')->nullable();
+            $table->integer('idade')->nullable();
+            $table->enum('sexo', ['Macho', 'Femea'])->nullable();
+            $table->decimal('peso', 5, 2)->default(0)->nullable();
+            $table->enum('porte', ['Pequeno', 'Médio', 'Grande', 'Não Definido'])->default('Não Definido')->nullable();
+            $table->boolean('castrado')->default('Não')->nullable();
+            $table->boolean('vacinas')->default(false)->nullable();
+            $table->string('onde_vacinado')->default('Não Definido')->nullable();
+            $table->text('anamnese')->default('Não Definido')->nullable();
             $table->foreignId('owner_id')->constrained()->onDelete('cascade');
 
             // Novos campos

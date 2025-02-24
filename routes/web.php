@@ -1,14 +1,18 @@
 <?php
 
+use App\Http\Controllers\ExameClinicoController;
 use App\Http\Controllers\MedicoController;
 use App\Http\Controllers\SolicitacaoExameController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\UserController;
+use App\Models\Owner;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\PetController;
+
 
 
 // Rotas de Registro
@@ -45,18 +49,56 @@ Route::middleware(['auth', 'admin'])->group(function () {
         $user = User::create($credentials);
 
         // Se o usuário for um veterinário, redirecionar para completar o perfil
-        if ($user->role === 'veterinario') {
+        if (auth()->user()->role === 'veterinario') {
             return redirect()->route('medico.completar-perfil', $user->id);
+        }else{
+            return redirect()->route('register')->with('success', 'Usuário registrado com sucesso!');
         }
-
-        return redirect('/register')->with('success', 'Usuário registrado com sucesso!');
     });
+
+    // Listar todos os usuários
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+
+    // Mostrar formulário para trocar senha
+    Route::get('/users/{user}/change-password', [UserController::class, 'showChangePasswordForm'])->name('users.change-password');
+
+    // Processar a troca de senha
+    Route::post('/users/{user}/change-password', [UserController::class, 'updatePassword'])->name('users.update-password');
 
 });
 
-Route::get('/medico/completar-perfil/{user}', [MedicoController::class, 'completarPerfil'])->name('medico.completar-perfil');
-Route::post('/medico/completar-perfil/{user}', [MedicoController::class, 'salvarPerfil'])->name('medico.salvar-perfil');
 
+// ROTAS DO MÉDICO
+
+Route::middleware(['auth', 'veterinario'])->group(function () {
+
+    // MOSTRA FORMULÁRIO PÓS REGISTRO
+    Route::get('/medico/completar-perfil/{user}', [MedicoController::class, 'completarPerfil'])
+        ->name('medico.completar-perfil');
+    // CUIDA DO PROCESSO DE PÓS REGISTRO
+    Route::post('/medico/completar-perfil/{user}', [MedicoController::class, 'salvarPerfil'])
+        ->name('medico.salvar-perfil');
+});
+
+// ROTA EXAME
+
+Route::middleware(['auth', 'veterinario.exame'])->group(function () {
+    // MOSTRA FORMULÁRIO DE CRIAÇÃO DO EXAME CLÍNICO GERAL
+    Route::get('/pets/{pet}/exame-clinico/create', [ExameClinicoController::class, 'create'])
+        ->name('exame-clinico.create');
+//CUIDA DO PROCESSO DE CRIAÇÃO DO EXAME CLÍNICO GERAL
+    Route::post('/pets/{pet}/exame-clinico', [ExameClinicoController::class, 'store'])
+        ->name('exame-clinico.store');
+//MOSTRA EXAME CLÍNICO GERAL
+    Route::get('/exame-clinico/{exameClinico}', [ExameClinicoController::class, 'show'])
+        ->name('exame-clinico.show');
+    // Mostra o histórico clínico de um pet
+    Route::get('/pets/{pet}/historico-clinico', [PetController::class, 'historicoClinico'])
+        ->name('pets.historico-clinico');
+    // Baixar Prontuário em PDF
+    Route::get('/exame-clinico/{exameClinico}/pdf', [ExameClinicoController::class, 'downloadPdf'])
+        ->name('exame-clinico.pdf');
+});
 
 // Rotas para Login
 
@@ -73,9 +115,16 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth'])->group(function () {
 
+    // Rota para os créditos
+    Route::get('/creditos', function () {
+        return view('creditos.index');
+    })->name('creditos');
 
 // Rotas para menu
     Route::get('/', function () {
+        if(auth()->user()->role !== 'admin'){
+            return redirect()->route('owners.index');
+        }
         return view('welcome');
     })->name('home');
 
@@ -90,33 +139,14 @@ Route::middleware(['auth'])->group(function () {
 
 // Rotas para Pet
     Route::resource('pets', PetController::class);
+    Route::get('/pets/create', [PetController::class, 'create'])->name('pets.create');
+
+    Route::get('/solicitacoes', [SolicitacaoExameController::class, 'index'])->name('solicitacoes.index')->middleware('veterinario.exame');
+    Route::get('/solicitacoes/create', [SolicitacaoExameController::class, 'create'])->name('solicitacoes.create')->middleware('veterinario.exame');
+    Route::post('/solicitacoes', [SolicitacaoExameController::class, 'store'])->name('solicitacoes.store')->middleware('veterinario.exame');
+    Route::get('/solicitacoes/{id}', [SolicitacaoExameController::class, 'show'])->name('solicitacoes.show')->middleware('veterinario.exame');
 
 
-    Route::get('/solicitacoes', [SolicitacaoExameController::class, 'index'])->name('solicitacoes.index');
-    Route::get('/solicitacoes/create', [SolicitacaoExameController::class, 'create'])->name('solicitacoes.create');
-    Route::post('/solicitacoes', [SolicitacaoExameController::class, 'store'])->name('solicitacoes.store');
-    Route::get('/solicitacoes/{id}', [SolicitacaoExameController::class, 'show'])->name('solicitacoes.show');
-
-
-    Route::put('/solicitacoes/{id}/status', [SolicitacaoExameController::class, 'updateStatus'])->name('solicitacoes.updateStatus');
-
-
-
-    // Rota para exibir o formulário de upload (GET)
-    Route::get('/solicitacoes/{id}/upload-pdf', [SolicitacaoExameController::class, 'showUploadForm'])
-        ->name('solicitacoes.showUploadForm')
-        ->middleware('auth');
-
-    // Rota para processar o upload do PDF (POST)
-    Route::post('/solicitacoes/{id}/upload-pdf', [SolicitacaoExameController::class, 'uploadPdf'])
-        ->name('solicitacoes.uploadPdf')
-        ->middleware('auth');
-
-    // Rota para baixar o PDF
-
-    Route::get('/solicitacoes/{id}/view-pdf', [SolicitacaoExameController::class, 'viewPdf'])
-        ->name('solicitacoes.viewPdf')
-        ->middleware('auth');
 
 
 });

@@ -1,6 +1,6 @@
 <x-layout>
     <div class="container mx-auto p-4">
-        <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">Detalhes do Dono/Responsável</h1>
+        <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">Detalhes do Tutor/Responsável</h1>
 
         <!-- Card de Detalhes do Dono -->
         <div class="bg-white shadow-lg rounded-lg p-6 max-w-4xl mx-auto mb-8">
@@ -24,10 +24,11 @@
                     </div>
 
                     <!-- RG -->
-                    <div class="flex items-center">
-                        <i data-feather="credit-card" class="w-5 h-5 mr-2 text-gray-600"></i>
-                        <p><strong class="text-gray-700">RG:</strong> <span class="text-gray-800">{{ $owner->rg }}</span></p>
-                    </div>
+{{--                    <div class="flex items-center">--}}
+{{--                        <i data-feather="credit-card" class="w-5 h-5 mr-2 text-gray-600"></i>--}}
+{{--                        <p><strong class="text-gray-700">RG:</strong> <span--}}
+{{--                                class="text-gray-800">{{ $owner->rg }}</span></p>--}}
+{{--                    </div>--}}
 
                     <!-- CPF -->
                     <div class="flex items-center">
@@ -128,6 +129,7 @@
                                 <td class="px-6 py-4 space-x-2">
                                     <a href="{{ route('pets.show', $pet->id) }}" class="text-blue-500 hover:text-blue-700">Ver</a>
                                     <a href="{{ route('pets.edit', $pet->id) }}" class="text-yellow-500 hover:text-yellow-700">Editar</a>
+                                    <a href="{{ route('exame-clinico.create', $pet->id) }}" class="text-green-500 hover:text-green-700">Exame Clínico</a>
                                     <form action="{{ route('pets.destroy', $pet->id) }}" method="POST" class="inline">
                                         @csrf
                                         @method('DELETE')
