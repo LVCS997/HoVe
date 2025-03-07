@@ -12,7 +12,26 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\PetController;
+use Barryvdh\DomPDF\Facade\Pdf;
 
+
+Route::get("/pdf1", function () {
+    return view("exame-clinico.pdf-1");
+});
+
+Route::get("/pdf1/get", function () {
+
+    // Gera o PDF a partir da view
+    $pdf = Pdf::loadView('exame-clinico.pdf-1');
+
+    // Define o nome do arquivo PDF
+    $fileName = 'requisicao_exame.pdf';
+
+    // Faz o download do PDF
+    return $pdf->download($fileName);
+
+
+});
 
 
 // Rotas de Registro

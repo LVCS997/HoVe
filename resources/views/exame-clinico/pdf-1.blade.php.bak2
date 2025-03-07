@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+    @page{
+        size: A4 landscape;
+        margin-right: 6mm;
+        margin-top: 14px;
+        margin-bottom: 0px;
+
+    }
+
+    body{
+        font-family: 'Roboto', Tahoma, sans-serif;
+    }
+
+    td{
+        /*height: 15px; */
+    }
+
+    table,
+    th,
+    td{
+        border: 1px solid rgb(0, 0, 0);
+        border-collapse: collapse;
+    }
+
+    .container{
+        width: 100%;
+        height: 100vh;
+        margin-top: 32px;
+
+        /*margin-top: 2rem;*/
+    }
+
+    .container--logo{
+        background: #195493;
+        border-radius: 5px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+
+        padding: 3px 0;
+
+        width: 100%;
+        display: inline-block;
+        text-align: center;
+        font-size: 0;
+    }
+
+    .container--logo__img{
+        width: 100px;
+    }
+
+    .box{
+        width: 49%;
+        /*margin-left: 1px;*/
+    }
+
+    .green{
+        display: inline-block;
+        font-size: 16px;
+        /* position: absolute; */
+        /* top:-5.5%; */
+
+    }
+
+    .blue{
+        display: inline-block;
+        font-size: 16px;
+        /* position: absolute; */
+        /* left: 49.5%; */
+        /* top:-5.5%; */
+
+
+    }
+
+    .red{
+        /*position: absolute; */
+        display: inline-block;
+        font-size: 14px;
+        /*margin-top: 2.5rem;*/
+        /*padding-bottom: 2.5rem; */
+        /* bottom: 27.53% */;
+
+        position: relative;
+        top: 40px;
+
+    }
+
+
+
+    .yellow{
+        /* position: absolute; */
+        display: inline-block;
+        font-size: 14px;
+        /*margin-top: 3.5rem; */
+        /* left: 49.5%; */
+        /* bottom:27%; */
+        position: relative;
+        top: 40px;
+    }
+
+    .yellow th{
+      height:21.4px;
+    }
+
+    .gold{
+        display: inline-block;
+        font-size: 16px;
+        border-right: 1px solid black;
+
+
+    }
+
+    .silver{
+        display: inline-block;
+        border-right: 1px solid black;
+
+    }
+
+    .title{
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    .bold{
+        font-weight: bold;
+    }
+
+    .table-info{
+        width: 100%;
+        vertical-align: top;
+        outline: rgb(0, 0, 0) 1px solid;
+
+    }
+
+    .red > .table-info{
+        text-align: justify;
+    }
+
+    .red > .table-info th{
+        text-align: center;
+    }
+
+    .table--dados-paciente-legenda{
+
+    }
+
+    .table--dados-paciente-legenda{
+    width:20px;
+    }
+
+    .table--cabecalho-tutor--row{
+
+    }
+
+    .table--cabecalho-tutor-legenda{
+
+    }
+
+    .table--dados-tutor{
+
+    }
+
+    .table--contato-tutor--row{
+
+    }
+
+    .table--contato-tutor-legenda{
+
+    }
+
+    .table--contato-tutor-legenda:nth-child(3){
+        width:52px;
+        font-size: 15px;
+    }
+
+    .table--contato-tutor{
+
+    }
+
+    .table--cabecalho-veterinario{
+
+    }
+
+    .table--cabecalho-veterinario-legenda{
+
+    }
+
+    .table--dados-veterinario--row{
+
+    }
+
+    .table--dados-veterinario-legenda{
+
+    }
+
+    .table--dados-veterinario-legenda:nth-child(3){
+        font-size: 12px;
+        width: 13px;
+    }
+
+    .table--dados-veteriario{
+
+    }
+
+    .table--dados-veteriario:nth-child(2){
+        width: 300px;
+    }
+
+    .table--dados-veteriario:nth-child(4){
+        width: 80px;
+    }
+
+
+
+    .table--assinatura-carimbo{
+    width:100%;
+    }
+
+    .table--assinatura-carimbo-legenda{
+        width: 30px;
+    }
+
+
+    .red .table-info:nth-of-type(-n+4),
+    .red .table-info:nth-of-type(-n+4) tr:last-child td {
+        border-bottom: none;
+        border-color: transparent; /* Garante que a borda fique invisível */
+        outline: none;
+    }
+
+    .red .table-info:nth-of-type(-n+4),
+    .red .table-info:nth-of-type(-n+4) tr:last-child td {
+        border-bottom: 1px solid black;
+        border-right: 1px solid black;
+        border-left: 1px solid black;
+    }
+
+    .red{
+        outline: 1px solid black;
+    }
+
+
+
+
+
+  </style>
+
+</head>
+<body>
+
+    <div class="box container--logo">
+        <img src="{{public_path("img/LogoPMDC.png")}}" alt="logo-pmdc" class="container--logo__img">
+    </div>
+
+    <div class="box container--logo">
+        <img src="{{public_path("img/LogoPMDC.png")}}" alt="logo-pmdc" class="container--logo__img">
+    </div>
+
+  <div class="container">
+
+    <div class="box green">
+      <table class="table-info">
+        <tbody>
+          <tr class="table--nome-paciente">
+            <th colspan="8">
+              Informações do Paciente
+            </th>
+          </tr>
+          <tr>
+            <td class="bold table--dados-paciente-legenda">Nome:</td>
+            <td colspan="8" class="table--dados-paciente"> Brucie</td>
+          </tr>
+          <tr class="table--dados-paciente-row">
+            <td class="bold table--dados-paciente-legenda">Espécie:</td>
+            <td class="table--dados-paciente paciente-especie">Canino</td>
+            <td class="bold table--dados-paciente-legenda">Raça:</td>
+            <td class="table--dados-paciente">Husky Siberiano</td>
+            <td class="bold table--dados-paciente-legenda">Sexo:</td>
+            <td class="table--dados-paciente">Macho</td>
+            <td class="bold table--dados-paciente-legenda">Idade:</td>
+            <td class="table--dados-paciente">19</td>
+          </tr>
+        </tbody>
+    </table>
+      <table class="table-info">
+        <tbody>
+          <tr class="table--cabecalho-tutor--row">
+            <th class="table--cabecalho-tutor-legenda" colspan=8>Dados do Tutor</th>
+          </tr>
+          <tr class="table--dados-tutor--row">
+            <td class="table--dados-tutor-legenda bold">Nome:</td>
+            <td colspan=7 class="table--dados-tutor">Francisco Oliveira</td>
+          </tr>
+          <tr class="table--contato-tutor--row">
+            <td class="table--contato-tutor-legenda bold" colspan="1">Telefone</td>
+            <td class="table--contato-tutor" colspan="1">(21) 965214641</td>
+            <td class="table--contato-tutor-legenda bold" colspan="1">E-mail:</td>
+            <td class="table--contato-tutor" colspan="5">silvasousalucas@live.com</td>
+          </tr>
+        </tbody>
+    </table>
+    <table class="table-info">
+        <tbody>
+          <tr class="table--cabecalho-veterinario">
+            <th colspan="8" class="table--cabecalho-veterinario-legenda">Dados do Veterinário</th>
+          </tr>
+          <tr class="table--dados-veterinario--row">
+            <td class="table--dados-veterinario-legenda bold" colspan="1">Nome:</td>
+            <td class="table--dados-veteriario" colspan="3">Ana Júlia Martins</td>
+            <td class="table--dados-veterinario-legenda bold" colspan="1">CRMV</td>
+            <td class="table--dados-veteriario" colspan="3">RJ-250025</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box blue">
+        <table class="table-info">
+            <tbody>
+              <tr class="table--nome-paciente">
+                <th colspan="8">
+                  Informações do Paciente
+                </th>
+              </tr>
+              <tr>
+                <td class="bold table--dados-paciente-legenda">Nome:</td>
+                <td colspan="8" class="table--dados-paciente"> Brucie</td>
+              </tr>
+              <tr class="table--dados-paciente-row">
+                <td class="bold table--dados-paciente-legenda">Espécie:</td>
+                <td class="table--dados-paciente paciente-especie">Canino</td>
+                <td class="bold table--dados-paciente-legenda">Raça:</td>
+                <td class="table--dados-paciente">Husky Siberiano</td>
+                <td class="bold table--dados-paciente-legenda">Sexo:</td>
+                <td class="table--dados-paciente">Macho</td>
+                <td class="bold table--dados-paciente-legenda">Idade:</td>
+                <td class="table--dados-paciente">19</td>
+              </tr>
+            </tbody>
+        </table>
+          <table class="table-info">
+            <tbody>
+              <tr class="table--cabecalho-tutor--row">
+                <th class="table--cabecalho-tutor-legenda" colspan=8>Dados do Tutor</th>
+              </tr>
+              <tr class="table--dados-tutor--row">
+                <td class="table--dados-tutor-legenda bold">Nome:</td>
+                <td colspan=7 class="table--dados-tutor">Francisco Oliveira</td>
+              </tr>
+              <tr class="table--contato-tutor--row">
+                <td class="table--contato-tutor-legenda bold" colspan="1">Telefone</td>
+                <td class="table--contato-tutor" colspan="1">(21) 965214641</td>
+                <td class="table--contato-tutor-legenda bold" colspan="1">E-mail:</td>
+                <td class="table--contato-tutor" colspan="5">silvasousalucas@live.com</td>
+              </tr>
+            </tbody>
+        </table>
+        <table class="table-info">
+            <tbody>
+              <tr class="table--cabecalho-veterinario">
+                <th colspan="8" class="table--cabecalho-veterinario-legenda">Dados do Veterinário</th>
+              </tr>
+              <tr class="table--dados-veterinario--row">
+                <td class="table--dados-veterinario-legenda bold" colspan="1">Nome:</td>
+                <td class="table--dados-veteriario" colspan="3">Ana Júlia Martins</td>
+                <td class="table--dados-veterinario-legenda bold" colspan="1">CRMV</td>
+                <td class="table--dados-veteriario" colspan="3">RJ-250025</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+
+
+
+    <div class="box red">
+        <table class="table-info">
+            <tr><th colspan="4">Bioquímica</th></tr>
+            <tr>
+              <td>(  ) Glicose</td>
+              <td>(  ) Ureia</td>
+              <td>(  ) Creatina</td>
+              <td>(  ) Eletrólitos (Na+K+Cl)</td>
+            </tr>
+          </table>
+
+          <table class="table-info">
+            <tr>
+              <td>(  ) AST(TGO)</td>
+              <td>(  ) ALT(TGP)</td>
+              <td>(  ) Fosfatase Alcalina</td>
+              <td>(  ) Proteína Total e frações</td>
+            </tr>
+          </table>
+
+          <table class="table-info">
+            <tr>
+              <td>(  ) Amilase</td>
+              <td>(  ) Lipase</td>
+              <td>(  ) Cálcio</td>
+              <td>(  ) Ferro</td>
+            </tr>
+          </table>
+
+          <table class="table-info">
+            <tr>
+              <td>(  ) Bilirrubinas Totais e Frações</td>
+              <td>(  ) DHL</td>
+            </tr>
+          </table>
+
+
+            <table class="table-info">
+                <tbody>
+                    <tr>
+                        <th colspan="2">Hematologia</th>
+                    </tr>
+
+                    <tr>
+                        <td>( ) Hemograma Completo</td>
+                        <td>( ) Teste de Compatibilidade Sanguinea</td>
+                    </tr>
+                    <tr>
+                        <td>( ) Teste de Coagulação</td>
+                        <td>( ) Pesquisa de Microfilária</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="table-info">
+                <tbody>
+                    <tr>
+                        <th colspan="2">Imunologia</th>
+                    </tr>
+
+                    <tr>
+                        <td>( ) Erliquiose lgG</td>
+                        <td>( ) Dirofilariose AG</td>
+                    </tr>
+                    <tr>
+                        <td>( ) Leishmaniose lgG</td>
+                        <td>( ) Leptospirose Total (Microaglutinação)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="table-info">
+                <tbody>
+                    <tr>
+                        <th colspan="1">Microbiologia</th>
+                    </tr>
+
+                    <tr>
+                        <td>( ) Pesquisa de Esporotricose</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table-info">
+                <tbody>
+                    <tr>
+                        <th colspan="2">Citologia</th>
+                    </tr>
+
+                    <tr>
+                        <td>( ) Citologia De Líquido Ascítico/Tórax</td>
+                        <td>( ) Citologia Otológica</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table-info">
+                <tbody>
+                    <tr>
+                        <th colspan="2">Urinálise</th>
+                    </tr>
+
+                    <tr>
+                        <td>( ) EAS</td>
+                        <td>( ) Relação PTN/Creatina</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    <div class="box yellow">
+      <table class="table-info">
+        <tr><th colspan="4">Radiografia Simples</th></tr>
+        <tr>
+          <td>( ) Tórax</td>
+          <td>( ) Abdômen</td>
+          <td>( ) Pelve</td>
+          <td>( ) Pescoço</td>
+        </tr>
+        <tr>
+          <td>( ) Crânio:</td>
+          <td colspan="3">( ) ATM ( ) Mandíbula ( ) Maxilar ( ) Bulas Timpânicas ( ) Seios Nasais ( ) Calota Craniana</td>
+        </tr>
+        <tr>
+          <td>( ) Coluna:</td>
+          <td colspan="3">( ) Cervical ( ) Cervitorácica ( ) Toracolombar ( ) Lombar ( ) Lombossacra ( ) Caudal</td>
+        </tr>
+        <tr>
+          <td>( ) Membro Torácico:</td>
+          <td colspan="3">( ) Esquerdo ( ) Direito</td>
+        </tr>
+        <tr>
+          <td>( ) Membro Pélvico:</td>
+          <td colspan="3">( ) Esquerdo ( ) Direito</td>
+        </tr>
+      </table>
+
+      <table class="table-info">
+        <tr><th colspan="4">Ultrassonografia</th></tr>
+        <tr>
+          <td>( ) Abdominal</td>
+          <td>( ) Ocular</td>
+          <td>( ) Cervical</td>
+          <td>( ) Outros: ______</td>
+        </tr>
+      </table>
+
+      <table class="table-info">
+        <tr><th colspan="4">Tomografia Computadorizada</th></tr>
+        <tr>
+          <td>( ) Tórax</td>
+          <td>( ) Abdômen</td>
+          <td>( ) Pescoço</td>
+          <td>( ) Crânio:</td>
+        </tr>
+        <tr>
+          <td colspan="4">( ) Bulas Timpânicas ( ) Seios Nasais ( ) Encéfalo</td>
+        </tr>
+      </table>
+
+      <table class="table-info">
+        <tr><th colspan="3">Cardiologia</th></tr>
+        <tr>
+          <td>( ) Ecocardiograma</td>
+          <td>( ) Eletrocardiograma</td>
+          <td>( ) Avaliação Pré-Anestésica</td>
+
+        </tr>
+      </table>
+</div>
+
+
+
+
+    <div class="box gold">
+      <table class="table--assinatura-carimbo">
+        <tr class="table--assinatura-carimbo--row">
+          <th colspan="7">Assinatura e Carimbo do Médico Veterinário</th>
+        </tr>
+        <tr class="table--assinatura-carimbo--row">
+          <td class="table--assinatura-carimbo-legenda bold">Assinatura:</td>
+          <td class="table--assinatura-carimbo "> Ana Júlia Martins</td>
+        </tr>
+        <tr class="table--assinatura-carimbo-data--row">
+            <td class="table--assinatura-carimbo-data--row bold">Data:</td>
+            <td class="table--assinatura-carimbo-data--row">01/03/2025</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="box silver">
+        <table class="table--assinatura-carimbo">
+            <tr class="table--assinatura-carimbo--row">
+              <th colspan="7">Assinatura e Carimbo do Médico Veterinário</th>
+            </tr>
+            <tr class="table--assinatura-carimbo--row">
+              <td class="table--assinatura-carimbo-legenda bold">Assinatura:</td>
+              <td class="table--assinatura-carimbo "> Ana Júlia Martins</td>
+            </tr>
+            <tr class="table--assinatura-carimbo-data--row">
+                <td class="table--assinatura-carimbo-data--row bold">Data:</td>
+                <td class="table--assinatura-carimbo-data--row">01/03/2025</td>
+            </tr>
+          </table>
+    </div>
+
+  </div>
+
+</body>
+</html>
